@@ -1,6 +1,7 @@
-import { getMDXComponent, ComponentMap } from "mdx-bundler/client";
-import { useMemo } from "react";
-import { Paragraph, Heading, Button as ThemeButton } from "theme-ui";
+import { ComponentMap, getMDXComponent } from "mdx-bundler/client";
+import React, { useMemo } from "react";
+import { Button as ThemeButton, Heading, Paragraph } from "theme-ui";
+import SyntaxHighlighter from "./SyntaxHighlighter";
 
 function Button(props: React.ComponentPropsWithoutRef<typeof ThemeButton>) {
   return <ThemeButton {...props} />;
@@ -8,7 +9,7 @@ function Button(props: React.ComponentPropsWithoutRef<typeof ThemeButton>) {
 
 const components: ComponentMap = {
   p: (props: React.ComponentPropsWithoutRef<typeof Paragraph>) => (
-    <Paragraph {...props} />
+    <Paragraph mb={3} {...props} />
   ),
   h1: (props: React.ComponentPropsWithoutRef<typeof Heading>) => (
     <Heading as="h1" {...props} />
@@ -23,6 +24,7 @@ const components: ComponentMap = {
     <Heading as="h4" {...props} />
   ),
   Button,
+  pre: (props: any) => <SyntaxHighlighter {...props} />,
 };
 
 export default function MDXComponent({ code }: { code: string }) {
