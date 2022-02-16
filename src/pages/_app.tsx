@@ -1,9 +1,11 @@
+import "@fontsource/inter";
+import "@fontsource/poppins";
 import type { AppProps } from "next/app";
 import GlobalStyles from "styles/GlobalStyles";
-import { ThemeProvider } from "@theme-ui/core";
 import { theme } from "styles/theme";
+import { ThemeProvider } from "theme-ui";
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles styles />
@@ -11,5 +13,3 @@ function MyApp({ Component, pageProps }: AppProps) {
     </ThemeProvider>
   );
 }
-
-export default MyApp;

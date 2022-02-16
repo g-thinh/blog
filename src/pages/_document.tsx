@@ -16,18 +16,11 @@ export default class AppDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <link rel="canonical" href={process.env.baseUrl} />
-          <meta name="robots" content="index, follow" />
-          <meta property="og:site_name" content={process.env.baseUrl} />
-          <meta property="og:type" content="article" />
-          <meta name="twitter:site" content="@GThinhNguyen" />
-          <meta name="twitter:creator" content="@GThinhNguyen" />
-        </Head>
+        <Head />
         <body>
+          <InitializeColorMode />
           <Main />
           <NextScript />
-          <InitializeColorMode />
         </body>
       </Html>
     );
