@@ -1,27 +1,22 @@
 import { styled } from "styles/stitches.config";
 import { Box, Flex } from "./Primitive";
+import Nav from "./Nav";
 
-const Main = styled(Flex, {
-  flexDirection: "column",
-  alignItems: "center",
+const Main = styled(Box, {
+  mt: "$10",
   width: "100%",
-  flex: "1",
+});
+
+export const Section = styled("section", {
+  maxWidth: "$4xl",
+  margin: "auto",
 });
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
   return (
     <Flex stack="column" css={{ minHeight: "100vh" }}>
-      <Main>
-        <Box
-          css={{
-            minWidth: 0,
-            flex: 1,
-            maxWidth: "$4xl",
-          }}
-        >
-          {children}
-        </Box>
-      </Main>
+      <Nav />
+      <Main>{children}</Main>
     </Flex>
   );
 }

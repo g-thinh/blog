@@ -4,14 +4,14 @@ import { theme } from "./stitches.config";
 export default function GetCodeBlockStyles() {
   return {
     plain: {
-      backgroundColor: theme.colors.muted.toString(),
+      backgroundColor: theme.colors.gray3.toString(),
       color: theme.colors.text.toString(),
     },
     styles: [
       {
         types: ["comment", "prolog", "doctype", "cdata", "punctuation"],
         style: {
-          color: theme.colors.grayness,
+          color: theme.colors.gray10,
         },
       },
       {
@@ -23,7 +23,7 @@ export default function GetCodeBlockStyles() {
       {
         types: ["tag", "operator", "number"],
         style: {
-          color: theme.colors.primary,
+          color: theme.colors.gray10,
         },
       },
       {
@@ -35,13 +35,13 @@ export default function GetCodeBlockStyles() {
       {
         types: ["tag-id", "selector", "atrule-id"],
         style: {
-          color: theme.colors.accent,
+          color: theme.colors.primary,
         },
       },
       {
         types: ["attr-name"],
         style: {
-          color: "red",
+          color: theme.colors.green10,
         },
       },
       {
@@ -92,7 +92,7 @@ export default function GetCodeBlockStyles() {
       {
         types: ["important"],
         style: {
-          color: theme.colors.highlight,
+          color: theme.colors.red10,
         },
       },
     ],

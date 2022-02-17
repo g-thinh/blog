@@ -21,6 +21,68 @@ Etiam imperdiet rhoncus egestas. Nam rutrum porta mollis. Phasellus tristique gr
 In nec nibh vitae lorem maximus pretium sed ac lorem. Aliquam viverra
 justo id lectus interdum finibus. Sed nec auctor leo, vitae accumsan leo. Suspendisse potenti. Integer ex elit, aliquet vel rhoncus quis, congue eget augue. Cras finibus arcu ut justo gravida pretium. Cras dictum porta purus, sit amet semper ex sodales quis.
 
-```tsx
-const hello = "world";
+While exploring _JAMstack_ **applications**, `I came across` the thought of rebuilding my
+React portfolio website into a full fledged Next.js application with Statically
+Generated content that I could manage through a [headless CMS](https://www.storyblok.com/).
+
+- Oranges
+- Apples
+
+1. Oranges
+2. Apples
+
+After going through a bunch of different approaches as to how I asda sd as asda das rebuild by
+portfolio website, I started thinking about how I wanted to also write blog posts
+about code I come across, the idea finally solidified after exploring Storyblok
+and Next.js for my frameworks of choice.In fact, while this blog was being
+built, the team over at Storyblok published this amazingly well-timed guide on
+how to integrate their CMS to a Next.js framework.
+
+## Setting Up The Boilerplate
+
+Next.js is a framework built on React, and `provides` incredible out-of-the-box
+features that make it easier for developers to create full-stack applications.
+Page routing and API routes are highly opinionated so there is little to
+configure, underneath the hood the app will be running an express server.
+
+Additionally, it can be easily hosted on Vercel (the team that built Next.js)
+for additional optimizations. The ability to statically generate dynamic pages
+according to specifications built on Storyblok was also another selling point
+for me and felt like the most natural way to build the application.
+
+```typescript filename="awesome.js" hl="8" showlineNumbers
+export const ThemeProvider = ({ children }) => {
+  const [colorMode, rawSetColorMode] = React.useState(getInitialColorMode);
+  const setColorMode = (value) => {
+    rawSetColorMode(value);
+    // Persist it on update
+    window.localStorage.setItem("color-mode", value);
+  };
+  return (
+    <ThemeContext.Provider value={{ colorMode, setColorMode, testing }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
 ```
+
+## This is the end
+
+Next.js is a framework built on React, and `provides` incredible out-of-the-box
+features that make it easier for developers to create full-stack applications.
+Page routing and API routes are highly opinionated so there is little to
+configure, underneath the hood the app will be running an express server.
+
+```css
+a > li,
+h1 {
+  background-color: red, @media-query (min-width: 768) {
+    width: 100% !important;
+  }
+}
+```
+
+Additionally, it can be easily hosted on Vercel (the team that built Next.js)
+for additional optimizations. The ability to statically generate dynamic pages
+according to specifications built on Storyblok was also another selling point
+for me and felt like the most natural way to build the application.

@@ -10,6 +10,7 @@
   "dependencies": {
     "@fontsource/inter": "^4.5.4",
     "@fontsource/poppins": "^4.5.1",
+    "@radix-ui/colors": "^0.1.8",
     "@stitches/react": "^1.2.6",
     "esbuild": "^0.14.21",
     "gray-matter": "^4.0.3",

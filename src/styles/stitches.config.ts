@@ -1,5 +1,17 @@
 import { createStitches } from "@stitches/react";
 import type * as Stitches from "@stitches/react";
+import {
+  gray,
+  blue,
+  red,
+  green,
+  amber,
+  grayDark,
+  blueDark,
+  redDark,
+  greenDark,
+  amberDark,
+} from "@radix-ui/colors";
 
 export const { styled, getCssText, globalCss, createTheme, theme } =
   createStitches({
@@ -133,45 +145,24 @@ export const { styled, getCssText, globalCss, createTheme, theme } =
       zIndices: {},
       transitions: {},
       colors: {
-        //Gray
-        gray50: "#F7FAFC",
-        gray100: "#EDF2F7",
-        gray200: "#E2E8F0",
-        gray300: "#CBD5E0",
-        gray400: "#A0AEC0",
-        gray500: "#718096",
-        gray600: "#4A5568",
-        gray700: "#2D3748",
-        gray800: "#1A202C",
-        gray900: "#171923",
+        ...gray,
+        ...blue,
+        ...red,
+        ...green,
+        ...amber,
 
-        //Blue
-        blue50: "#EAF3FB",
-        blue100: "#C4DCF3",
-        blue200: "#9EC6EB",
-        blue300: "#77B0E3",
-        blue400: "#519ADC",
-        blue500: "#2B84D4",
-        blue600: "#2369A9",
-        blue700: "#1A4F7F",
-        blue800: "#113555",
-        blue900: "#091A2A",
-
-        primary: "#3182CE",
-        secondary: "#F7B108",
-        accent: "#00A3C4",
-        text: "#000",
-        background: "#EFF0F5",
-        muted: "#e1e5f2",
-        highlight: "#9F7AEA",
-        grayness: "#6c757d",
+        primary: "$blue10",
+        secondary: "$amber10",
+        text: "$gray12",
+        background: "$gray2",
       },
     },
     media: {
       dark: "(prefers-color-scheme: dark)",
-      sm: "(min-width: 375px)",
-      md: "(min-width: 768px)",
-      lg: "(min-width: 1024px)",
+      sm: "(min-width: 30em)",
+      md: "(min-width: 48em)",
+      lg: "(min-width: 62em)",
+      xl: "(min-width: 80em)",
     },
     utils: {
       m: (value: Stitches.ScaleValue<"space">) => ({
@@ -206,6 +197,27 @@ export const { styled, getCssText, globalCss, createTheme, theme } =
         paddingRight: value,
       }),
 
+      py: (value: Stitches.ScaleValue<"space">) => ({
+        paddingTop: value,
+        paddingBottom: value,
+      }),
+
+      pt: (value: Stitches.ScaleValue<"space">) => ({
+        paddingTop: value,
+      }),
+
+      pb: (value: Stitches.ScaleValue<"space">) => ({
+        paddingBottom: value,
+      }),
+
+      pl: (value: Stitches.ScaleValue<"space">) => ({
+        paddingLeft: value,
+      }),
+
+      pr: (value: Stitches.ScaleValue<"space">) => ({
+        paddingRight: value,
+      }),
+
       // A property for applying width/height together
       size: (value: Stitches.ScaleValue<"space">) => ({
         width: value,
@@ -229,13 +241,16 @@ export const { styled, getCssText, globalCss, createTheme, theme } =
 
 export const darkTheme = createTheme({
   colors: {
-    primary: "#4299E1",
-    secondary: "#F8BF35",
-    accent: "#90cdf4",
-    text: "#F0F5FA",
-    background: "#222639",
-    muted: "#131520",
-    highlight: "#B794F4",
+    ...grayDark,
+    ...blueDark,
+    ...redDark,
+    ...greenDark,
+    ...amberDark,
+
+    primary: "$blue10",
+    secondary: "$amber10",
+    text: "$gray12",
+    background: "$gray2",
   },
 });
 
@@ -249,8 +264,8 @@ export const globalStyles = globalCss({
   "*::after": { boxSizing: "inherit" },
 
   body: {
-    background: "$background",
-    color: "$text",
+    background: "$gray2",
+    color: "$gray12",
     margin: 0,
     fontFamily: "$body",
   },
