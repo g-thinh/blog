@@ -1,6 +1,14 @@
 import Highlight, { defaultProps } from "prism-react-renderer";
-import React from "react";
 import GetCodeBlockStyles from "styles/getCodeBlockStyles";
+import { styled } from "styles/stitches.config";
+
+const Pre = styled("pre", {
+  fontFamily: "$code",
+  lineHeight: "$tall",
+  p: "$4",
+  br: "$lg",
+  my: "$6",
+});
 
 type SyntaxHighlighterProps = React.ComponentPropsWithoutRef<"pre"> & {
   children?: React.ReactElement | null;
@@ -18,15 +26,17 @@ const SyntaxHighlighter: React.FC<SyntaxHighlighterProps> = ({ children }) => {
       theme={GetCodeBlockStyles()}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={{ ...style }}>
-          {tokens.slice(0, -1).map((line, i) => (
-            <div key={i} {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span key={key} {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
-        </pre>
+        <>
+          <Pre className={className} style={{ ...style }}>
+            {tokens.slice(0, -1).map((line, i) => (
+              <div key={i} {...getLineProps({ line, key: i })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            ))}
+          </Pre>
+        </>
       )}
     </Highlight>
   );

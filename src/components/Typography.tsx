@@ -6,7 +6,7 @@ export type HeadingProps = React.ComponentPropsWithoutRef<typeof Heading>;
 export const Text = styled("p", {
   fontFamily: "$body",
   lineHeight: "$tall",
-
+  m: "$0",
   "@sm": {
     fontSize: "$md",
   },

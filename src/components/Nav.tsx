@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
 import { styled } from "styles/stitches.config";
+import Link from "./Link";
 import { Flex } from "./Primitive";
-import { Text, Heading } from "./Typography";
+import { Heading } from "./Typography";
 
 const LazyToggleColorMode = dynamic(
   () => import("components/ToggleColorMode"),
@@ -23,8 +24,8 @@ export default function Nav() {
       <Heading level="three">Gia Thinh Nguyen</Heading>
       <Flex css={{ alignItems: "center", gap: "$5" }}>
         <LazyToggleColorMode />
-        <Text>About</Text>
-        <Text>Blog</Text>
+        <Link href="/about">About</Link>
+        <Link href="/blog">Blog</Link>
       </Flex>
     </Container>
   );

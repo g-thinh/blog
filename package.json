@@ -5,12 +5,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier -w src"
   },
   "dependencies": {
     "@fontsource/inter": "^4.5.4",
+    "@fontsource/jetbrains-mono": "^4.5.3",
     "@fontsource/poppins": "^4.5.1",
     "@radix-ui/colors": "^0.1.8",
+    "@radix-ui/react-icons": "^1.0.3",
     "@stitches/react": "^1.2.6",
     "esbuild": "^0.14.21",
     "gray-matter": "^4.0.3",
@@ -27,6 +30,7 @@
     "@types/react": "17.0.39",
     "eslint": "8.9.0",
     "eslint-config-next": "12.0.10",
+    "prettier": "^2.5.1",
     "typescript": "4.5.5"
   }
 }
