@@ -5,7 +5,7 @@ import Document, {
   NextScript,
   DocumentContext,
 } from "next/document";
-import { InitializeColorMode } from "theme-ui";
+import { getCssText } from "styles/stitches.config";
 
 export default class AppDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -16,9 +16,13 @@ export default class AppDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <style
+            id="stitches"
+            dangerouslySetInnerHTML={{ __html: getCssText() }}
+          />
+        </Head>
         <body>
-          <InitializeColorMode />
           <Main />
           <NextScript />
         </body>

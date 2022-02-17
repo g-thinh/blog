@@ -1,20 +1,17 @@
 import { PrismTheme } from "prism-react-renderer";
-import { useTheme } from "./theme";
+import { theme } from "./stitches.config";
 
 export default function GetCodeBlockStyles() {
-  const {
-    theme: { colors },
-  } = useTheme();
   return {
     plain: {
-      backgroundColor: colors.muted,
-      color: colors.text,
+      backgroundColor: theme.colors.muted.toString(),
+      color: theme.colors.text.toString(),
     },
     styles: [
       {
         types: ["comment", "prolog", "doctype", "cdata", "punctuation"],
         style: {
-          color: colors.grayness,
+          color: theme.colors.grayness,
         },
       },
       {
@@ -26,19 +23,19 @@ export default function GetCodeBlockStyles() {
       {
         types: ["tag", "operator", "number"],
         style: {
-          color: colors.primary,
+          color: theme.colors.primary,
         },
       },
       {
         types: ["property", "function"],
         style: {
-          color: colors.secondary,
+          color: theme.colors.secondary,
         },
       },
       {
         types: ["tag-id", "selector", "atrule-id"],
         style: {
-          color: colors.accent,
+          color: theme.colors.accent,
         },
       },
       {
@@ -65,7 +62,7 @@ export default function GetCodeBlockStyles() {
           "variable",
         ],
         style: {
-          color: colors.primary,
+          color: theme.colors.primary,
         },
       },
       {
@@ -95,7 +92,7 @@ export default function GetCodeBlockStyles() {
       {
         types: ["important"],
         style: {
-          color: colors.highlight,
+          color: theme.colors.highlight,
         },
       },
     ],

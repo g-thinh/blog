@@ -1,14 +1,19 @@
 import "@fontsource/inter";
 import "@fontsource/poppins";
+import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
-import GlobalStyles from "styles/GlobalStyles";
-import { theme } from "styles/theme";
-import { ThemeProvider } from "theme-ui";
+import { darkTheme } from "styles/stitches.config";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles styles />
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      value={{
+        light: "light",
+        dark: darkTheme.className,
+      }}
+    >
       <Component {...pageProps} />
     </ThemeProvider>
   );

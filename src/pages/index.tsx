@@ -1,8 +1,14 @@
 import MDXComponent from "components/MDXComponent";
 import { InferGetStaticPropsType } from "next";
-import React from "react";
-import { Box, Button, Heading, Paragraph } from "theme-ui";
+import dynamic from "next/dynamic";
 import { getSinglePost, LANDING_PATH } from "utils/mdxUtils";
+import Flex from "components/Flex";
+import Text from "components/Text";
+
+const LazyToggleColorMode = dynamic(
+  () => import("components/ToggleColorMode"),
+  { ssr: false }
+);
 
 export async function getStaticProps() {
   const { code, frontmatter } = await getSinglePost("test", LANDING_PATH);
@@ -19,13 +25,10 @@ export default function Home(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <Box px={5}>
-      <Button>Hello</Button>
-      <Heading>This is a heading</Heading>
-      <Paragraph>Hello Again</Paragraph>
-      <Box>
-        <MDXComponent code={props.code} />
-      </Box>
-    </Box>
+    <Flex css={{ flexDirection: "column" }}>
+      <Text>Hello World</Text>
+      <LazyToggleColorMode />
+      <MDXComponent code={props.code} />
+    </Flex>
   );
 }
