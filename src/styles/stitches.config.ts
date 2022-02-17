@@ -11,6 +11,7 @@ export const { styled, getCssText, globalCss, createTheme, theme } =
         header: "Poppins",
       },
       space: {
+        0: "0rem",
         0.5: "0.125rem",
         1: "0.25rem",
         1.5: "0.375rem",
@@ -168,37 +169,45 @@ export const { styled, getCssText, globalCss, createTheme, theme } =
     },
     media: {
       dark: "(prefers-color-scheme: dark)",
-      // sm: "(min-width: 375px)",
-      // md: "(min-width: 768px)",
-      // lg: "(min-width: 1024px)",
+      sm: "(min-width: 375px)",
+      md: "(min-width: 768px)",
+      lg: "(min-width: 1024px)",
     },
     utils: {
-      m: (value: Stitches.ScaleValue<"spaces">) => ({
+      m: (value: Stitches.ScaleValue<"space">) => ({
         margin: value,
       }),
-      mt: (value: Stitches.ScaleValue<"spaces">) => ({
+      mt: (value: Stitches.ScaleValue<"space">) => ({
         marginTop: value,
       }),
-      mr: (value: Stitches.ScaleValue<"spaces">) => ({
+      mr: (value: Stitches.ScaleValue<"space">) => ({
         marginRight: value,
       }),
-      mb: (value: Stitches.ScaleValue<"spaces">) => ({
+      mb: (value: Stitches.ScaleValue<"space">) => ({
         marginBottom: value,
       }),
-      ml: (value: Stitches.ScaleValue<"spaces">) => ({
+      ml: (value: Stitches.ScaleValue<"space">) => ({
         marginLeft: value,
       }),
-      mx: (value: Stitches.ScaleValue<"spaces">) => ({
+      mx: (value: Stitches.ScaleValue<"space">) => ({
         marginLeft: value,
         marginRight: value,
       }),
-      my: (value: Stitches.ScaleValue<"spaces">) => ({
+      my: (value: Stitches.ScaleValue<"space">) => ({
         marginTop: value,
         marginBottom: value,
+      }),
+      p: (value: Stitches.ScaleValue<"space">) => ({
+        padding: value,
+      }),
+
+      px: (value: Stitches.ScaleValue<"space">) => ({
+        paddingLeft: value,
+        paddingRight: value,
       }),
 
       // A property for applying width/height together
-      size: (value: Stitches.ScaleValue<"spaces">) => ({
+      size: (value: Stitches.ScaleValue<"space">) => ({
         width: value,
         height: value,
       }),

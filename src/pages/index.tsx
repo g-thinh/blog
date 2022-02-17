@@ -1,9 +1,9 @@
 import MDXComponent from "components/MDXComponent";
+import { Flex } from "components/Primitive";
+import { Text } from "components/Typography";
 import { InferGetStaticPropsType } from "next";
 import dynamic from "next/dynamic";
 import { getSinglePost, LANDING_PATH } from "utils/mdxUtils";
-import Flex from "components/Flex";
-import Text from "components/Text";
 
 const LazyToggleColorMode = dynamic(
   () => import("components/ToggleColorMode"),
@@ -25,7 +25,7 @@ export default function Home(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <Flex css={{ flexDirection: "column" }}>
+    <Flex stack="column">
       <Text>Hello World</Text>
       <LazyToggleColorMode />
       <MDXComponent code={props.code} />
