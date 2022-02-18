@@ -18,10 +18,16 @@ const components: ComponentMap = {
     <List as="ol" css={{ listStyleType: "decimal" }} {...props} />
   ),
   li: (props: ListItemProps) => <ListItem {...props} />,
-  h1: (props: HeadingProps) => <Heading {...props} />,
-  h2: (props: HeadingProps) => <Heading as="h2" level="two" {...props} />,
-  h3: (props: HeadingProps) => <Heading as="h3" level="three" {...props} />,
-  h4: (props: HeadingProps) => <Heading as="h4" level="four" {...props} />,
+  h1: (props: HeadingProps) => <Heading css={{ mb: "$3" }} {...props} />,
+  h2: (props: HeadingProps) => (
+    <Heading as="h2" css={{ mb: "$3" }} level="two" {...props} />
+  ),
+  h3: (props: HeadingProps) => (
+    <Heading as="h3" css={{ mb: "$3" }} level="three" {...props} />
+  ),
+  h4: (props: HeadingProps) => (
+    <Heading as="h4" css={{ mb: "$3" }} level="four" {...props} />
+  ),
   pre: (props: any) => <SyntaxHighlighter {...props} />,
   a: (props: any) => <Link type="text" {...props} />,
 };

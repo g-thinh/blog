@@ -3,13 +3,12 @@ import Highlight, { defaultProps } from "prism-react-renderer";
 import GetCodeBlockStyles from "styles/getCodeBlockStyles";
 import { styled } from "styles/stitches.config";
 import { Flex } from "./Primitive";
-import { Text } from "./Typography";
+import { baseTextStyles, Text } from "./Typography";
 
 const ScrollContainer = styled(ScrollArea.Root, {
   overflow: "hidden",
   position: "relative",
   maxWidth: "100vw",
-  mx: "$2",
   my: "$6",
   br: "$2xl",
   "@xl": {
@@ -18,9 +17,8 @@ const ScrollContainer = styled(ScrollArea.Root, {
   },
 });
 
-const Pre = styled("pre", {
+const Pre = styled("pre", baseTextStyles, {
   fontFamily: "$code",
-  lineHeight: "$tall",
   p: "$4",
   borderRadius: "inherit",
   "@xl": {
