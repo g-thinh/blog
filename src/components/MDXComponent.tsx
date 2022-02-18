@@ -6,7 +6,7 @@ import SyntaxHighlighter from "./SyntaxHighlighter";
 import { Heading, HeadingProps, Text, TextProps } from "./Typography";
 
 const components: ComponentMap = {
-  p: (props: TextProps) => <Text {...props} />,
+  p: (props: TextProps) => <Text css={{ mb: "$5" }} {...props} />,
   em: (props: TextProps) => (
     <Text as="em" css={{ fontStyle: "italic" }} {...props} />
   ),

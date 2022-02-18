@@ -11,6 +11,9 @@ enum LinkVariants {
 const StyledIcon = styled(ExternalLinkIcon, {
   ml: "$1",
   size: 14,
+  "@lg": {
+    size: 18,
+  },
 });
 
 export const Anchor = styled("a", baseTextStyles, {

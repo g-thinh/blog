@@ -159,10 +159,10 @@ export const { styled, getCssText, globalCss, createTheme, theme, css } =
     },
     media: {
       dark: "(prefers-color-scheme: dark)",
-      sm: "(min-width: 30em)",
-      md: "(min-width: 48em)",
-      lg: "(min-width: 62em)",
-      xl: "(min-width: 80em)",
+      sm: "(min-width: 30em)", //480px
+      md: "(min-width: 48em)", //768px
+      lg: "(min-width: 64em)", //1024px
+      xl: "(min-width: 80em)", //1280px
     },
     utils: {
       m: (value: Stitches.ScaleValue<"space">) => ({

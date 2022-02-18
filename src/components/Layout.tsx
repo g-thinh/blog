@@ -10,6 +10,10 @@ const Main = styled(Box, {
 export const Section = styled("section", {
   maxWidth: "$4xl",
   margin: "auto",
+  px: "$2",
+  "@lg": {
+    px: "$0",
+  },
 });
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
