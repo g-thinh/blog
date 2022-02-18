@@ -4,9 +4,8 @@ export type TextProps = React.ComponentPropsWithoutRef<typeof Text>;
 export type HeadingProps = React.ComponentPropsWithoutRef<typeof Heading>;
 
 export const Text = styled("p", {
-  fontFamily: "$body",
   lineHeight: "$tall",
-  m: "$0",
+  fontFamily: "$body",
   "@sm": {
     fontSize: "$md",
   },
@@ -19,7 +18,6 @@ export const Text = styled("p", {
 export const Heading = styled("h1", {
   fontFamily: "$header",
   lineHeight: "$tall",
-  my: "$0",
   fontSize: "$4xl",
   "@sm": {
     fontSize: "$5xl",

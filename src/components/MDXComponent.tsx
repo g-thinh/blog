@@ -7,8 +7,16 @@ import { Heading, HeadingProps, Text, TextProps } from "./Typography";
 
 const components: ComponentMap = {
   p: (props: TextProps) => <Text {...props} />,
+  em: (props: TextProps) => (
+    <Text as="em" css={{ fontStyle: "italic" }} {...props} />
+  ),
+  strong: (props: TextProps) => (
+    <Text as="strong" css={{ fontWeight: "$bold" }} {...props} />
+  ),
   ul: (props: ListProps) => <List {...props} />,
-  ol: (props: ListProps) => <List as="ol" {...props} />,
+  ol: (props: ListProps) => (
+    <List as="ol" css={{ listStyleType: "decimal" }} {...props} />
+  ),
   li: (props: ListItemProps) => <ListItem {...props} />,
   h1: (props: HeadingProps) => <Heading {...props} />,
   h2: (props: HeadingProps) => <Heading as="h2" level="two" {...props} />,

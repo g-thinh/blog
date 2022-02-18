@@ -1,5 +1,5 @@
-import { Text } from "./Typography";
 import { styled } from "styles/stitches.config";
+import { Text } from "./Typography";
 
 export const Box = styled("div", {});
 export type BoxProps = React.ComponentPropsWithoutRef<typeof Box>;
@@ -18,6 +18,7 @@ export const Flex = styled(Box, {
 export type ListProps = React.ComponentPropsWithoutRef<typeof List>;
 export const List = styled("ul", {
   ml: "$5",
+  listStyleType: "disc",
   "::marker": {
     fontFamily: "$body",
   },

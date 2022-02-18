@@ -29,7 +29,10 @@ export const Anchor = styled("a", {
   variants: {
     type: {
       [LinkVariants.Text]: {
-        textDecoration: "underline",
+        color: "$primary",
+        [`& ${Text}:hover`]: {
+          textDecoration: "underline",
+        },
       },
     },
   },

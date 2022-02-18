@@ -1,6 +1,3 @@
-import "@fontsource/inter";
-import "@fontsource/jetbrains-mono";
-import "@fontsource/poppins";
 import Layout from "components/Layout";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";

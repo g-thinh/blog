@@ -73,7 +73,6 @@ export const { styled, getCssText, globalCss, createTheme, theme } =
         "8xl": "6rem",
         "9xl": "8rem",
       },
-
       fontWeights: {
         hairline: 100,
         thin: 200,
@@ -255,39 +254,18 @@ export const darkTheme = createTheme({
   },
 });
 
-export const globalStyles = globalCss({
-  html: {
-    boxSizing: "border-box",
-  },
-
-  "*": { boxSizing: "inherit" },
-  "*::before": { boxSizing: "inherit" },
-  "*::after": { boxSizing: "inherit" },
+const globalStyles = globalCss({
+  "@import": [
+    "url('https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css')", //CSS Rest
+    "url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap')",
+    "url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap')",
+    "url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap')",
+  ],
 
   body: {
     background: "$gray2",
     color: "$gray12",
-    margin: 0,
-    fontFamily: "$body",
   },
-
-  "h1, h2, h3,h4,h5,h6": {
-    fontFamily: "$header",
-  },
-
-  /* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-  */
-  "html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video":
-    {
-      margin: 0,
-      padding: 0,
-      border: 0,
-      fontSize: "100%",
-      font: "inherit",
-      verticalAlign: "baseline",
-    },
 });
 
 globalStyles();
