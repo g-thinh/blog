@@ -1,19 +1,21 @@
-import { styled } from "styles/stitches.config";
+import { styled, css } from "styles/stitches.config";
 
 export type TextProps = React.ComponentPropsWithoutRef<typeof Text>;
 export type HeadingProps = React.ComponentPropsWithoutRef<typeof Heading>;
 
-export const Text = styled("p", {
+export const baseTextStyles = css({
   lineHeight: "$tall",
   fontFamily: "$body",
   "@sm": {
-    fontSize: "$md",
+    fontSize: "$lg",
   },
 
   "@md": {
-    fontSize: "$lg",
+    fontSize: "$xl",
   },
 });
+
+export const Text = styled("p", baseTextStyles);
 
 export const Heading = styled("h1", {
   fontFamily: "$header",

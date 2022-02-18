@@ -13,7 +13,7 @@ import {
   amberDark,
 } from "@radix-ui/colors";
 
-export const { styled, getCssText, globalCss, createTheme, theme } =
+export const { styled, getCssText, globalCss, createTheme, theme, css } =
   createStitches({
     theme: {
       fonts: {

@@ -1,7 +1,8 @@
-import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import { Text } from "./Typography";
-import { styled } from "styles/stitches.config";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import type * as Stitches from "@stitches/react";
+import NextLink, { LinkProps as NextLinkProps } from "next/link";
+import { styled } from "styles/stitches.config";
+import { baseTextStyles } from "./Typography";
 
 enum LinkVariants {
   Text = "text",
@@ -12,12 +13,12 @@ const StyledIcon = styled(ExternalLinkIcon, {
   size: 14,
 });
 
-export const Anchor = styled("a", {
+export const Anchor = styled("a", baseTextStyles, {
+  color: "$text",
   display: "inline-flex",
   alignItems: "center",
-  color: "inherit",
   textDecoration: "none",
-  [`& ${Text}:hover`]: {
+  [`&:hover`]: {
     color: "$primary",
     textDecoration: "underline",
 
@@ -30,7 +31,7 @@ export const Anchor = styled("a", {
     type: {
       [LinkVariants.Text]: {
         color: "$primary",
-        [`& ${Text}:hover`]: {
+        [`& p:hover`]: {
           textDecoration: "underline",
         },
       },
@@ -40,13 +41,14 @@ export const Anchor = styled("a", {
 
 type LinkProps = React.PropsWithChildren<NextLinkProps> & {
   type?: LinkVariants;
+  css?: Stitches.CSS;
 };
 
-export default function Link({ children, type, ...props }: LinkProps) {
+export default function Link({ children, type, css, ...props }: LinkProps) {
   if (typeof props.href === "string" && props.href.match(/^(https?:)?\/\//)) {
     return (
-      <Anchor href={props.href} type={type} target="_blank">
-        <Text>{children}</Text>
+      <Anchor href={props.href} type={type} target="_blank" css={css}>
+        {children}
         <StyledIcon />
       </Anchor>
     );
@@ -54,8 +56,8 @@ export default function Link({ children, type, ...props }: LinkProps) {
 
   return (
     <NextLink passHref {...props}>
-      <Anchor type={type}>
-        <Text>{children}</Text>
+      <Anchor type={type} css={css}>
+        {children}
       </Anchor>
     </NextLink>
   );

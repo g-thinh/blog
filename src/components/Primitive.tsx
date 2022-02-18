@@ -1,5 +1,5 @@
 import { styled } from "styles/stitches.config";
-import { Text } from "./Typography";
+import { baseTextStyles } from "./Typography";
 
 export const Box = styled("div", {});
 export type BoxProps = React.ComponentPropsWithoutRef<typeof Box>;
@@ -25,6 +25,4 @@ export const List = styled("ul", {
 });
 
 export type ListItemProps = React.ComponentPropsWithoutRef<typeof ListItem>;
-export const ListItem = styled("li", {
-  ...Text,
-});
+export const ListItem = styled("li", baseTextStyles);
