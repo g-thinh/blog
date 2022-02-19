@@ -5,6 +5,7 @@ import Nav from "./Nav";
 const Main = styled(Box, {
   mt: "$10",
   width: "100%",
+  flex: 1,
 });
 
 export const Section = styled("section", {

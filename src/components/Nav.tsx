@@ -17,7 +17,7 @@ const Container = styled(Flex, {
   margin: "auto",
   py: "$5",
   px: "$8",
-  "@md": {
+  "@lg": {
     px: "$0",
   },
 });

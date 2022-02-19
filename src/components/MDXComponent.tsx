@@ -1,5 +1,6 @@
 import { ComponentMap, getMDXComponent } from "mdx-bundler/client";
 import React, { useMemo } from "react";
+import CardAbout from "./CardAbout";
 import Link from "./Link";
 import { List, ListItem, ListItemProps, ListProps } from "./Primitive";
 import SyntaxHighlighter from "./SyntaxHighlighter";
@@ -52,6 +53,7 @@ const components: ComponentMap = {
   ),
   pre: (props: any) => <SyntaxHighlighter {...props} />,
   a: (props: any) => <Link type="text" {...props} />,
+  CardAbout,
 };
 
 export default function MDXComponent({ code }: { code: string }) {

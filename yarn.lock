@@ -168,6 +168,14 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
+"@radix-ui/react-aspect-ratio@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-aspect-ratio/-/react-aspect-ratio-0.1.3.tgz#648a09bc539d0e6e0f23e195abd8799ef9fa0a5d"
+  integrity sha512-GIj78gShjSbEm8oOng24bg/dmUgZ8md2T5PnsBVAQquNWp94bOYFzS7iQytW+T2KqLMV1AKwgvNIOzSrFQEtOg==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/react-primitive" "0.1.3"
+
 "@radix-ui/react-compose-refs@0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-compose-refs/-/react-compose-refs-0.1.0.tgz#cff6e780a0f73778b976acff2c2a5b6551caab95"
