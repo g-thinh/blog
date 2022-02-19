@@ -12,7 +12,7 @@ export default function ToggleColorMode() {
   return (
     <DarkModeSwitch
       moonColor={stitchesTheme.colors.primary.toString()}
-      sunColor={stitchesTheme.colors.secondary.toString()}
+      sunColor={stitchesTheme.colors.amber7.toString()}
       size={20}
       checked={isDark}
       onChange={handleColorChange}

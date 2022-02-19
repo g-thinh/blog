@@ -2,6 +2,7 @@ import { Box, Flex } from "./Primitive";
 import Image, { ImageProps } from "./Image";
 import { Heading, Text } from "./Typography";
 import { styled } from "styles/stitches.config";
+import { Section } from "./Layout";
 
 const CardContainer = styled(Flex, {
   position: "relative",
@@ -54,24 +55,26 @@ type CardAboutProps = React.PropsWithChildren<{
 
 export default function CardAbout(props: CardAboutProps) {
   return (
-    <CardContainer>
-      <ImageContainer>
-        <Image
-          src={props.src}
-          alt=""
-          ratio={1}
-          css={{
-            br: "$full",
-            boxShadow: "$about",
-          }}
-        />
-      </ImageContainer>
-      <TextContainer>
-        <Heading as="h2" level="two" css={{ fontWeight: "$light" }}>
-          {props.title}
-        </Heading>
-        <Text css={{ lineHeight: "$tall" }}>{props.description}</Text>
-      </TextContainer>
-    </CardContainer>
+    <Section as="article">
+      <CardContainer>
+        <ImageContainer>
+          <Image
+            src={props.src}
+            alt=""
+            ratio={1}
+            css={{
+              br: "$full",
+              boxShadow: "$about",
+            }}
+          />
+        </ImageContainer>
+        <TextContainer>
+          <Heading as="h2" level="two" css={{ fontWeight: "$light" }}>
+            {props.title}
+          </Heading>
+          <Text css={{ lineHeight: "$tall" }}>{props.description}</Text>
+        </TextContainer>
+      </CardContainer>
+    </Section>
   );
 }

@@ -1,33 +1,44 @@
 import { ComponentMap, getMDXComponent } from "mdx-bundler/client";
 import React, { useMemo } from "react";
+import { styled } from "styles/stitches.config";
 import CardAbout from "./CardAbout";
+import { Section, sectionStyles } from "./Layout";
 import Link from "./Link";
 import { List, ListItem, ListItemProps, ListProps } from "./Primitive";
 import SyntaxHighlighter from "./SyntaxHighlighter";
 import { Heading, HeadingProps, Text, TextProps } from "./Typography";
 
+const StyledText = styled(Text, sectionStyles);
+const StyledHeading = styled(Heading, sectionStyles);
+
 const components: ComponentMap = {
-  p: (props: TextProps) => <Text css={{ mb: "$5" }} {...props} />,
+  p: (props: TextProps) => <StyledText css={{ mb: "$5" }} {...props} />,
   em: (props: TextProps) => (
     <Text as="em" css={{ fontStyle: "italic" }} {...props} />
   ),
   strong: (props: TextProps) => (
     <Text as="strong" css={{ fontWeight: "$bold" }} {...props} />
   ),
-  ul: (props: ListProps) => <List css={{ mt: "$2", mb: "$5" }} {...props} />,
+  ul: (props: ListProps) => (
+    <Section as="div">
+      <List css={{ mt: "$2", mb: "$5" }} {...props} />
+    </Section>
+  ),
   ol: (props: ListProps) => (
-    <List
-      as="ol"
-      css={{ listStyleType: "decimal", mt: "$2", mb: "$5" }}
-      {...props}
-    />
+    <Section as="div">
+      <List
+        as="ol"
+        css={{ listStyleType: "decimal", mt: "$2", mb: "$5" }}
+        {...props}
+      />
+    </Section>
   ),
   li: (props: ListItemProps) => <ListItem {...props} />,
   h1: (props: HeadingProps) => (
-    <Heading css={{ mb: "$3", color: "$primary" }} {...props} />
+    <StyledHeading css={{ mb: "$3", color: "$primary" }} {...props} />
   ),
   h2: (props: HeadingProps) => (
-    <Heading
+    <StyledHeading
       as="h2"
       css={{ mb: "$3", color: "$secondary" }}
       level="two"
@@ -35,7 +46,7 @@ const components: ComponentMap = {
     />
   ),
   h3: (props: HeadingProps) => (
-    <Heading as="h3" css={{ mb: "$3" }} level="three" {...props} />
+    <StyledHeading as="h3" css={{ mb: "$3" }} level="three" {...props} />
   ),
   code: (props: TextProps) => (
     <Text
@@ -51,7 +62,11 @@ const components: ComponentMap = {
       {...props}
     />
   ),
-  pre: (props: any) => <SyntaxHighlighter {...props} />,
+  pre: (props: any) => (
+    <Section as="div">
+      <SyntaxHighlighter {...props} />
+    </Section>
+  ),
   a: (props: any) => <Link type="text" {...props} />,
   CardAbout,
 };

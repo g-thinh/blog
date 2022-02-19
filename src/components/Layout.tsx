@@ -1,4 +1,4 @@
-import { styled } from "styles/stitches.config";
+import { styled, css } from "styles/stitches.config";
 import { Box, Flex } from "./Primitive";
 import Nav from "./Nav";
 
@@ -8,7 +8,7 @@ const Main = styled(Box, {
   flex: 1,
 });
 
-export const Section = styled("section", {
+export const sectionStyles = css({
   maxWidth: "$4xl",
   margin: "auto",
   px: "$8",
@@ -16,6 +16,8 @@ export const Section = styled("section", {
     px: "$0",
   },
 });
+
+export const Section = styled("section", sectionStyles);
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
   return (

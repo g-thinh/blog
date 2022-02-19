@@ -1,17 +1,19 @@
-import { createStitches } from "@stitches/react";
-import type * as Stitches from "@stitches/react";
 import {
-  gray,
-  blue,
-  red,
-  green,
   amber,
-  grayDark,
-  blueDark,
-  redDark,
-  greenDark,
   amberDark,
+  blue,
+  blueDark,
+  gray,
+  grayDark,
+  green,
+  greenDark,
+  red,
+  redDark,
+  sky,
+  skyDark,
 } from "@radix-ui/colors";
+import type * as Stitches from "@stitches/react";
+import { createStitches } from "@stitches/react";
 
 export const {
   styled,
@@ -167,6 +169,7 @@ export const {
       ...red,
       ...green,
       ...amber,
+      ...sky,
       shadow: "0deg 0% 50%",
       primary: "$blue10",
       secondary: "$amber10",
@@ -267,6 +270,7 @@ export const darkTheme = createTheme({
     ...redDark,
     ...greenDark,
     ...amberDark,
+    ...skyDark,
 
     primary: "$blue10",
     secondary: "$amber10",
