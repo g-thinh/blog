@@ -14,7 +14,7 @@ const Icon = styled("svg", {
 export default function Footer() {
   return (
     <>
-      <Wave css={{ transform: "rotate(180deg)" }} fill="$gray3" />
+      <Wave css={{ transform: "rotate(180deg) scaleX(-1)" }} fill="$gray3" />
       <Box css={{ backgroundColor: "$gray3", padding: "$10" }}>
         <Section>
           <Flex

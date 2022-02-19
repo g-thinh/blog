@@ -3,6 +3,7 @@ import path from "path";
 import { bundleMDX } from "mdx-bundler";
 
 export const LANDING_PATH = path.join(process.cwd(), "src/mdx");
+export const BLOG_PATH = path.join(process.cwd(), "src/mdx/blog");
 
 export function getSourceOfFile(fileName: string, contentPath: string) {
   return fs.readFileSync(path.join(contentPath, fileName), "utf-8");
