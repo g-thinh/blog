@@ -10,13 +10,18 @@ const LazyToggleColorMode = dynamic(
 );
 
 const Container = styled(Flex, {
-  alignItems: "center",
-  justifyContent: "space-between",
   maxWidth: "$4xl",
   width: "100%",
   margin: "auto",
   py: "$5",
   px: "$8",
+  flexDirection: "column",
+  gap: "$2",
+  "@md": {
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
   "@lg": {
     px: "$0",
   },
@@ -36,9 +41,9 @@ export default function Nav() {
         </Heading>
       </Link>
       <Flex css={{ alignItems: "center", gap: "$5" }}>
-        <LazyToggleColorMode />
         <Link href="/about">About</Link>
         <Link href="/blog">Blog</Link>
+        <LazyToggleColorMode />
       </Flex>
     </Container>
   );
