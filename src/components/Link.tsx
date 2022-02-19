@@ -22,8 +22,9 @@ export const Anchor = styled("a", baseTextStyles, {
   alignItems: "center",
   textDecoration: "none",
   [`&:hover`]: {
-    color: "$primary",
     textDecoration: "underline",
+    textDecorationColor: "$primary",
+    textDecorationThickness: 3,
 
     [`~ ${StyledIcon}`]: {
       color: "$primary",

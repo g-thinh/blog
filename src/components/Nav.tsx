@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { styled } from "styles/stitches.config";
 import Link from "./Link";
 import { Flex } from "./Primitive";
-import { Heading } from "./Typography";
+import { Heading, headingTwoStyles } from "./Typography";
 
 const LazyToggleColorMode = dynamic(
   () => import("components/ToggleColorMode"),
@@ -22,11 +22,18 @@ const Container = styled(Flex, {
   },
 });
 
+const Dot = styled("span", headingTwoStyles, {
+  color: "$primary",
+});
+
 export default function Nav() {
   return (
     <Container as="nav">
       <Link href="/">
-        <Heading level="two">Gia Thinh Nguyen</Heading>
+        <Heading level="two">
+          Gia Thinh Nguyen
+          <Dot>.</Dot>
+        </Heading>
       </Link>
       <Flex css={{ alignItems: "center", gap: "$5" }}>
         <LazyToggleColorMode />

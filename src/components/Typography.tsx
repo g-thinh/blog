@@ -17,6 +17,16 @@ export const baseTextStyles = css({
 
 export const Text = styled("p", baseTextStyles);
 
+export const headingTwoStyles = css({
+  fontSize: "$2xl",
+  "@sm": {
+    fontSize: "$3xl",
+  },
+  "@md": {
+    fontSize: "$4xl",
+  },
+});
+
 export const Heading = styled("h1", {
   fontFamily: "$header",
   lineHeight: "$short",
@@ -31,13 +41,7 @@ export const Heading = styled("h1", {
   variants: {
     level: {
       two: {
-        fontSize: "$2xl",
-        "@sm": {
-          fontSize: "$3xl",
-        },
-        "@md": {
-          fontSize: "$4xl",
-        },
+        headingTwoStyles,
       },
       three: {
         fontSize: "$xl",
