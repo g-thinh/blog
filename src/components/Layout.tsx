@@ -1,6 +1,7 @@
-import { styled, css } from "styles/stitches.config";
-import { Box, Flex } from "./Primitive";
+import { css, styled } from "styles/stitches.config";
+import Footer from "./Footer";
 import Nav from "./Nav";
+import { Box, Flex } from "./Primitive";
 
 const Main = styled(Box, {
   mt: "$10",
@@ -24,6 +25,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
     <Flex stack="column" css={{ minHeight: "100vh" }}>
       <Nav />
       <Main>{children}</Main>
+      <Footer />
     </Flex>
   );
 }

@@ -48,7 +48,7 @@ export default function Nav() {
           <LazyToggleColorMode />
         </Flex>
       </Container>
-      <Wave />
+      <Wave fill="$sky3" />
     </Box>
   );
 }

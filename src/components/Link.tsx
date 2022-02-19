@@ -4,7 +4,7 @@ import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { styled } from "styles/stitches.config";
 import { baseTextStyles } from "./Typography";
 
-enum LinkVariants {
+enum LinkVariantsEnum {
   Text = "text",
 }
 
@@ -33,25 +33,47 @@ export const Anchor = styled("a", baseTextStyles, {
 
   variants: {
     type: {
-      [LinkVariants.Text]: {
+      [LinkVariantsEnum.Text]: {
         color: "$primary",
         [`& p:hover`]: {
           textDecoration: "underline",
         },
       },
     },
+    hideExternalIcon: {
+      true: {
+        "svg:last-child": {
+          display: "none",
+        },
+      },
+    },
   },
 });
 
+type LinkVariants = Stitches.VariantProps<typeof Anchor>;
+
 type LinkProps = React.PropsWithChildren<NextLinkProps> & {
-  type?: LinkVariants;
+  type?: LinkVariantsEnum;
+  hideExternalIcon?: LinkVariants["hideExternalIcon"];
   css?: Stitches.CSS;
 };
 
-export default function Link({ children, type, css, ...props }: LinkProps) {
+export default function Link({
+  children,
+  type,
+  css,
+  hideExternalIcon,
+  ...props
+}: LinkProps) {
   if (typeof props.href === "string" && props.href.match(/^(https?:)?\/\//)) {
     return (
-      <Anchor href={props.href} type={type} target="_blank" css={css}>
+      <Anchor
+        href={props.href}
+        type={type}
+        hideExternalIcon={hideExternalIcon}
+        target="_blank"
+        css={css}
+      >
         {children}
         <StyledIcon />
       </Anchor>
