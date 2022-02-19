@@ -10,7 +10,7 @@ const Main = styled(Box, {
 export const Section = styled("section", {
   maxWidth: "$4xl",
   margin: "auto",
-  px: "$2",
+  px: "$8",
   "@lg": {
     px: "$0",
   },

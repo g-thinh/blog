@@ -4,13 +4,13 @@ export type TextProps = React.ComponentPropsWithoutRef<typeof Text>;
 export type HeadingProps = React.ComponentPropsWithoutRef<typeof Heading>;
 
 export const baseTextStyles = css({
-  lineHeight: "$tall",
+  lineHeight: "$taller",
   fontFamily: "$body",
   "@sm": {
     fontSize: "$lg",
   },
 
-  "@md": {
+  "@lg": {
     fontSize: "$xl",
   },
 });
@@ -19,27 +19,18 @@ export const Text = styled("p", baseTextStyles);
 
 export const Heading = styled("h1", {
   fontFamily: "$header",
-  lineHeight: "$tall",
+  lineHeight: "$short",
   fontSize: "$4xl",
   "@sm": {
-    fontSize: "$5xl",
+    fontSize: "$4xl",
   },
   "@md": {
-    fontSize: "$6xl",
+    fontSize: "$5xl",
   },
 
   variants: {
     level: {
       two: {
-        fontSize: "$3xl",
-        "@sm": {
-          fontSize: "$4xl",
-        },
-        "@md": {
-          fontSize: "$5xl",
-        },
-      },
-      three: {
         fontSize: "$2xl",
         "@sm": {
           fontSize: "$3xl",
@@ -48,7 +39,7 @@ export const Heading = styled("h1", {
           fontSize: "$4xl",
         },
       },
-      four: {
+      three: {
         fontSize: "$xl",
         "@sm": {
           fontSize: "$2xl",

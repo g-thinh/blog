@@ -17,6 +17,10 @@ export const Flex = styled(Box, {
 
 export type ListProps = React.ComponentPropsWithoutRef<typeof List>;
 export const List = styled("ul", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "$2",
+
   ml: "$5",
   listStyleType: "disc",
   "::marker": {

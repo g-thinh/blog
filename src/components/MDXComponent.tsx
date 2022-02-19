@@ -13,20 +13,42 @@ const components: ComponentMap = {
   strong: (props: TextProps) => (
     <Text as="strong" css={{ fontWeight: "$bold" }} {...props} />
   ),
-  ul: (props: ListProps) => <List {...props} />,
+  ul: (props: ListProps) => <List css={{ mt: "$2", mb: "$5" }} {...props} />,
   ol: (props: ListProps) => (
-    <List as="ol" css={{ listStyleType: "decimal" }} {...props} />
+    <List
+      as="ol"
+      css={{ listStyleType: "decimal", mt: "$2", mb: "$5" }}
+      {...props}
+    />
   ),
   li: (props: ListItemProps) => <ListItem {...props} />,
-  h1: (props: HeadingProps) => <Heading css={{ mb: "$3" }} {...props} />,
+  h1: (props: HeadingProps) => (
+    <Heading css={{ mb: "$3", color: "$primary" }} {...props} />
+  ),
   h2: (props: HeadingProps) => (
-    <Heading as="h2" css={{ mb: "$3" }} level="two" {...props} />
+    <Heading
+      as="h2"
+      css={{ mb: "$3", color: "$secondary" }}
+      level="two"
+      {...props}
+    />
   ),
   h3: (props: HeadingProps) => (
     <Heading as="h3" css={{ mb: "$3" }} level="three" {...props} />
   ),
-  h4: (props: HeadingProps) => (
-    <Heading as="h4" css={{ mb: "$3" }} level="four" {...props} />
+  code: (props: TextProps) => (
+    <Text
+      as="code"
+      css={{
+        display: "inline-block",
+        fontFamily: "$code",
+        color: "$amber10",
+        px: "$2",
+        br: "$md",
+        backgroundColor: "$gray3",
+      }}
+      {...props}
+    />
   ),
   pre: (props: any) => <SyntaxHighlighter {...props} />,
   a: (props: any) => <Link type="text" {...props} />,

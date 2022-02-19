@@ -6,13 +6,16 @@ excerpt: "A look at how to make the most of MDX in your blog"
 category: "coding"
 ---
 
+# Frontend Developer Since Yesterday
+
+In nec nibh vitae lorem maximus pretium sed ac lorem. Aliquam viverra
+justo id lectus interdum finibus. Sed nec auctor leo, vitae accumsan leo. Suspendisse potenti. Integer ex elit, aliquet vel rhoncus quis, congue eget augue. Cras finibus arcu ut justo gravida pretium. Cras dictum porta purus, sit amet semper ex sodales quis.
+
 # This is an H1
 
 ## This is an H2
 
 ### This is an H3
-
-#### This is an H4
 
 **Lorem ipsum dolor sit amet, consectetur adipiscing elit.** Suspendisse ut dignissim nulla, in varius odio.
 Duis ut libero a turpis pharetra faucibus. Vestibulum nunc neque, dignissim nec libero vel, tincidunt congue quam.
@@ -50,7 +53,7 @@ for additional optimizations. The ability to statically generate dynamic pages
 according to specifications built on Storyblok was also another selling point
 for me and felt like the most natural way to build the application.
 
-```typescript filename="awesome.js" hl="8" showlineNumbers
+```tsx filename="awesome.js" hl="8" showlineNumbers
 export const ThemeProvider = ({ children }) => {
   const [colorMode, rawSetColorMode] = React.useState(getInitialColorMode);
   const setColorMode = (value) => {

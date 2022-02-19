@@ -15,8 +15,8 @@ const Container = styled(Flex, {
   maxWidth: "$4xl",
   width: "100%",
   margin: "auto",
-  py: "$3",
-  px: "$2",
+  py: "$5",
+  px: "$8",
   "@md": {
     px: "$0",
   },
@@ -24,9 +24,9 @@ const Container = styled(Flex, {
 
 export default function Nav() {
   return (
-    <Container>
+    <Container as="nav">
       <Link href="/">
-        <Heading level="three">Gia Thinh Nguyen</Heading>
+        <Heading level="two">Gia Thinh Nguyen</Heading>
       </Link>
       <Flex css={{ alignItems: "center", gap: "$5" }}>
         <LazyToggleColorMode />
