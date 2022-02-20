@@ -14,7 +14,10 @@ const Icon = styled("svg", {
 export default function Footer() {
   return (
     <>
-      <Wave css={{ transform: "rotate(180deg) scaleX(-1)" }} fill="$gray3" />
+      <Wave
+        css={{ transform: "rotate(180deg) scaleX(-1)", mt: "$10" }}
+        fill="$gray3"
+      />
       <Box css={{ backgroundColor: "$gray3", padding: "$10" }}>
         <Section>
           <Flex
@@ -33,7 +36,6 @@ export default function Footer() {
               <Link
                 href="https://twitter.com/GThinhNguyen"
                 aria-label="Follow me on Twitter"
-                hideExternalIcon
                 css={{
                   ":hover": {
                     color: "$gray11",
@@ -45,7 +47,6 @@ export default function Footer() {
               <Link
                 href="https://github.com/g-thinh/"
                 aria-label="Check out my projects on GitHub"
-                hideExternalIcon
                 css={{
                   ":hover": {
                     color: "$gray11",
@@ -57,7 +58,6 @@ export default function Footer() {
               <Link
                 href="https://www.linkedin.com/in/gthinh-nguyen"
                 aria-label="Connect with me on LinkedIn"
-                hideExternalIcon
                 css={{
                   ":hover": {
                     color: "$gray11",

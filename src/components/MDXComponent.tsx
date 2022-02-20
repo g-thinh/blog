@@ -1,6 +1,7 @@
 import { ComponentMap, getMDXComponent } from "mdx-bundler/client";
 import React, { useMemo } from "react";
 import { styled } from "styles/stitches.config";
+import Accordion from "./Accordion";
 import CardAbout from "./CardAbout";
 import { Section, sectionStyles } from "./Layout";
 import Link from "./Link";
@@ -8,7 +9,9 @@ import { List, ListItem, ListItemProps, ListProps } from "./Primitive";
 import SyntaxHighlighter from "./SyntaxHighlighter";
 import { Heading, HeadingProps, Text, TextProps } from "./Typography";
 
-const StyledText = styled(Text, sectionStyles);
+const StyledText = styled(Text, sectionStyles, {
+  px: "$8",
+});
 const StyledHeading = styled(Heading, sectionStyles);
 
 const components: ComponentMap = {
@@ -63,12 +66,13 @@ const components: ComponentMap = {
     />
   ),
   pre: (props: any) => (
-    <Section as="div">
+    <>
       <SyntaxHighlighter {...props} />
-    </Section>
+    </>
   ),
   a: (props: any) => <Link type="text" {...props} />,
   CardAbout,
+  Accordion,
 };
 
 export default function MDXComponent({ code }: { code: string }) {

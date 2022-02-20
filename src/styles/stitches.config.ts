@@ -200,7 +200,9 @@ export const {
     ml: (value: Stitches.ScaleValue<"space">) => ({
       marginLeft: value,
     }),
-    mx: (value: Stitches.ScaleValue<"space">) => ({
+    mx: (
+      value: Stitches.ScaleValue<"space"> | Stitches.CSSProperties["margin"]
+    ) => ({
       marginLeft: value,
       marginRight: value,
     }),

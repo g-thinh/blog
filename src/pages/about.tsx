@@ -1,4 +1,3 @@
-import { Section } from "components/Layout";
 import MDXComponent from "components/MDXComponent";
 import { InferGetStaticPropsType } from "next";
 import { getSinglePost, LANDING_PATH } from "utils/mdxUtils";

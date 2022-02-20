@@ -8,42 +8,24 @@ enum LinkVariantsEnum {
   Text = "text",
 }
 
-const StyledIcon = styled(ExternalLinkIcon, {
-  ml: "$1",
-  size: 14,
-  "@lg": {
-    size: 18,
-  },
-});
-
 export const Anchor = styled("a", baseTextStyles, {
   color: "$text",
   display: "inline-flex",
   alignItems: "center",
   textDecoration: "none",
-  [`&:hover`]: {
+  "&:hover": {
     textDecoration: "underline",
     textDecorationColor: "$primary",
     textDecorationThickness: 3,
-
-    [`~ ${StyledIcon}`]: {
-      color: "$primary",
-    },
   },
 
   variants: {
     type: {
       [LinkVariantsEnum.Text]: {
         color: "$primary",
-        [`& p:hover`]: {
+        "&:hover": {
           textDecoration: "underline",
-        },
-      },
-    },
-    hideExternalIcon: {
-      true: {
-        "svg:last-child": {
-          display: "none",
+          textDecorationThickness: 1,
         },
       },
     },
@@ -54,28 +36,14 @@ type LinkVariants = Stitches.VariantProps<typeof Anchor>;
 
 type LinkProps = React.PropsWithChildren<NextLinkProps> & {
   type?: LinkVariantsEnum;
-  hideExternalIcon?: LinkVariants["hideExternalIcon"];
   css?: Stitches.CSS;
 };
 
-export default function Link({
-  children,
-  type,
-  css,
-  hideExternalIcon,
-  ...props
-}: LinkProps) {
+export default function Link({ children, type, css, ...props }: LinkProps) {
   if (typeof props.href === "string" && props.href.match(/^(https?:)?\/\//)) {
     return (
-      <Anchor
-        href={props.href}
-        type={type}
-        hideExternalIcon={hideExternalIcon}
-        target="_blank"
-        css={css}
-      >
+      <Anchor href={props.href} type={type} target="_blank" css={css}>
         {children}
-        <StyledIcon />
       </Anchor>
     );
   }

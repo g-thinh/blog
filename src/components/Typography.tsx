@@ -30,12 +30,12 @@ export const headingTwoStyles = css({
 export const Heading = styled("h1", {
   fontFamily: "$header",
   lineHeight: "$short",
-  fontSize: "$4xl",
+  fontSize: "$2xl",
   "@sm": {
-    fontSize: "$4xl",
+    fontSize: "$3xl",
   },
-  "@md": {
-    fontSize: "$5xl",
+  "@xl": {
+    fontSize: "$4xl",
   },
 
   variants: {

@@ -10,10 +10,10 @@ const ScrollContainer = styled(ScrollArea.Root, {
   position: "relative",
   maxWidth: "100vw",
   my: "$6",
-  br: "$2xl",
-  "@xl": {
-    marginRight: "-2rem",
-    marginLeft: "-2rem",
+  "@md": {
+    br: "$2xl",
+    maxWidth: "$4xl",
+    mx: "auto",
   },
 });
 

@@ -1,0 +1,2 @@
+// This is to avoid auto-formatting from saving .mdx files
+*.mdx
