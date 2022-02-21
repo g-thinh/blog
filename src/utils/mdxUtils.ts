@@ -1,12 +1,37 @@
 import fs from "fs";
-import path from "path";
+import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
+import path from "path";
+
+type MDXFrontmatter = {
+  title?: string;
+  date?: Date;
+  description?: string;
+};
 
 export const LANDING_PATH = path.join(process.cwd(), "src/mdx");
 export const BLOG_PATH = path.join(process.cwd(), "src/mdx/blog");
 
 export function getSourceOfFile(fileName: string, contentPath: string) {
   return fs.readFileSync(path.join(contentPath, fileName), "utf-8");
+}
+
+export function getAllPosts(contentPath: string) {
+  return fs
+    .readdirSync(contentPath)
+    .filter((path) => /\.mdx?$/.test(path))
+    .map((fileName) => {
+      const source = getSourceOfFile(fileName, contentPath);
+      const slug = fileName.replace(/\.mdx?$/, "");
+      const full_slug = `/blog/${slug}`;
+      const { data } = matter(source);
+
+      return {
+        frontmatter: data as MDXFrontmatter,
+        slug: slug,
+        full_slug,
+      };
+    });
 }
 
 export async function getSinglePost(slug: string, contentPath: string) {
@@ -29,7 +54,7 @@ export async function getSinglePost(slug: string, contentPath: string) {
     );
   }
 
-  const { code, frontmatter } = await bundleMDX({
+  const { code, frontmatter } = await bundleMDX<MDXFrontmatter>({
     source: source,
     cwd: contentPath,
     xdmOptions(options) {
