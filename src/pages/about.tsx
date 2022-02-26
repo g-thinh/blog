@@ -1,4 +1,5 @@
 import MDXComponent from "components/MDXComponent";
+import SEO from "components/SEO";
 import { InferGetStaticPropsType } from "next";
 import { getSinglePost, LANDING_PATH } from "utils/mdxUtils";
 
@@ -18,6 +19,7 @@ export default function About(
 ) {
   return (
     <>
+      <SEO meta={{ ...props.frontmatter }} />
       <MDXComponent code={props.code} />
     </>
   );

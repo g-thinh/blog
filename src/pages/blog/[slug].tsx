@@ -1,10 +1,11 @@
-import MDXComponent from "components/MDXComponent";
-import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import { BLOG_PATH, getSinglePost, getAllPosts } from "utils/mdxUtils";
-import PostTitle from "components/PostTitle";
-import { Section } from "components/Layout";
-import { Box } from "components/Primitive";
 import Image from "components/Image";
+import { Section } from "components/Layout";
+import MDXComponent from "components/MDXComponent";
+import PostTitle from "components/PostTitle";
+import { Box } from "components/Primitive";
+import SEO from "components/SEO";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { BLOG_PATH, getAllPosts, getSinglePost } from "utils/mdxUtils";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const blogPostName = context?.params?.slug as string;
@@ -34,6 +35,7 @@ export default function BlogPost(
 ) {
   return (
     <>
+      <SEO meta={{ ...props.frontmatter }} />
       <Section css={{ display: "flex", flexDirection: "column", gap: "$4" }}>
         <PostTitle {...props.frontmatter} />
         <Box css={{ my: "$5" }}>

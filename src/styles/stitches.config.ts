@@ -168,7 +168,6 @@ export const {
       ...green,
       ...amber,
       ...sky,
-      shadow: "0deg 0% 50%",
       primary: "$blue10",
       secondary: "$amber10",
       text: "$gray12",

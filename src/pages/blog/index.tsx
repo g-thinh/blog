@@ -3,6 +3,7 @@ import CardPost from "components/CardPost";
 import { Section } from "components/Layout";
 import MDXComponent from "components/MDXComponent";
 import { Box } from "components/Primitive";
+import SEO from "components/SEO";
 import { Heading } from "components/Typography";
 import { InferGetStaticPropsType } from "next";
 import {
@@ -41,6 +42,7 @@ export default function Blog(
 ) {
   return (
     <>
+      <SEO meta={{ ...props.frontmatter }} />
       <MDXComponent code={props.code} />
       <Section css={{ mb: "$10" }}>
         <Heading as="h2" level="two" css={{ color: "$secondary", mb: "$4" }}>

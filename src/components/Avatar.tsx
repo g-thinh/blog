@@ -34,7 +34,10 @@ const StyledFallback = styled(RadixAvatar.Fallback, {
 export default function Avatar() {
   return (
     <StyledAvatar>
-      <StyledImage src="/images/profile.png" alt="Gia Thinh Nguyen" />
+      <StyledImage
+        src="https://i.imgur.com/20iJ7PQ.png"
+        alt="Gia Thinh Nguyen"
+      />
       <StyledFallback delayMs={300}>GT</StyledFallback>
     </StyledAvatar>
   );

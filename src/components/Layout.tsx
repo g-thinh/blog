@@ -1,7 +1,8 @@
-import { css, styled } from "styles/stitches.config";
+import { css, styled, theme } from "styles/stitches.config";
 import Footer from "./Footer";
 import Nav from "./Nav";
 import { Box, Flex } from "./Primitive";
+import Head from "next/head";
 
 const Main = styled(Box, {
   mt: "$10",
@@ -22,10 +23,16 @@ export const Section = styled("section", sectionStyles);
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
   return (
-    <Flex stack="column" css={{ minHeight: "100vh" }}>
-      <Nav />
-      <Main>{children}</Main>
-      <Footer />
-    </Flex>
+    <>
+      <Head>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="theme-color" content={theme.colors.sky3.value} />
+      </Head>
+      <Flex stack="column" css={{ minHeight: "100vh" }}>
+        <Nav />
+        <Main>{children}</Main>
+        <Footer />
+      </Flex>
+    </>
   );
 }
