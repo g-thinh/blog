@@ -40,6 +40,7 @@ export default function BlogPost(
           <Image
             src={props.frontmatter?.imageUrl ?? ""}
             alt={props.frontmatter.imageAltText}
+            priority
             css={{
               "@lg": { marginRight: "-2rem", marginLeft: "-2rem" },
             }}

@@ -76,16 +76,10 @@ const components: ComponentMap = {
   CardAbout,
   Image: (props: ImageProps) => (
     <Section as="div" css={{ my: "$10" }}>
-      <Image
-        src={props.src}
-        alt={props.alt}
-        priority
-        css={{ "@lg": { marginRight: "-2rem", marginLeft: "-2rem" } }}
-      />
+      <Image src={props.src} alt={props.alt} />
     </Section>
   ),
   Accordion,
-  PostTitle,
 };
 
 export default function MDXComponent({ code }: { code: string }) {
