@@ -35,7 +35,7 @@ export default function Footer() {
               </Text>
               <Link
                 href="https://twitter.com/GThinhNguyen"
-                aria-label="Follow me on Twitter"
+                screenReaderMessage="Follow me on Twitter"
                 css={{
                   ":hover": {
                     color: "$gray11",
@@ -46,25 +46,25 @@ export default function Footer() {
               </Link>
               <Link
                 href="https://github.com/g-thinh/"
-                aria-label="Check out my projects on GitHub"
+                screenReaderMessage="Check out my projects on GitHub"
                 css={{
                   ":hover": {
                     color: "$gray11",
                   },
                 }}
               >
-                <Icon as={GitHubLogoIcon} />
+                <Icon aria-hidden as={GitHubLogoIcon} />
               </Link>
               <Link
                 href="https://www.linkedin.com/in/gthinh-nguyen"
-                aria-label="Connect with me on LinkedIn"
+                screenReaderMessage="Connect with me on LinkedIn"
                 css={{
                   ":hover": {
                     color: "$gray11",
                   },
                 }}
               >
-                <Icon as={FaLinkedin} />
+                <Icon aria-hidden as={FaLinkedin} />
               </Link>
             </Flex>
             <Text

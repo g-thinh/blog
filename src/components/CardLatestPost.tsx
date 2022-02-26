@@ -3,7 +3,7 @@ import Avatar from "./Avatar";
 import Image from "./Image";
 import Link, { LinkProps } from "./Link";
 import { Box, Flex } from "./Primitive";
-import Time from "./Time";
+import Time, { readTime } from "./Time";
 import { Heading, Text } from "./Typography";
 
 type CardPostProps = MDXFrontmatter & {
@@ -11,6 +11,10 @@ type CardPostProps = MDXFrontmatter & {
 };
 
 export default function CardLatestPost(props: CardPostProps) {
+  const screenReaderMessage = `${props.title}, ${
+    props.description
+  }, published on ${readTime(props.publishedDate)}`;
+
   return (
     <Flex
       as="article"
@@ -66,28 +70,14 @@ export default function CardLatestPost(props: CardPostProps) {
                 mt: "$6",
                 ml: "$8",
               },
+              "&:hover": {
+                transform: "scale(1.05)",
+                transition: "transform 0.3s ease-in-out",
+              },
             }}
           />
         </Box>
       </Flex>
-      <Link
-        href={props.href}
-        css={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          left: 0,
-          bottom: 0,
-          zIndex: 1,
-          "&:hover, &:focus-within": {
-            textDecoration: "none",
-            [`& + ${Flex} > ${Heading}`]: {
-              textDecoration: "underline",
-              textDecorationColor: "$secondary",
-            },
-          },
-        }}
-      />
       <Flex
         css={{
           flex: 1,
@@ -95,23 +85,44 @@ export default function CardLatestPost(props: CardPostProps) {
           justifyContent: "center",
           mx: "$6",
           gap: "$2",
-
+          position: "relative",
           "@md": {
             mx: "$0",
           },
         }}
       >
-        <Heading as="h3" level="three">
+        <Link
+          href={props.href}
+          screenReaderMessage={screenReaderMessage}
+          css={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 0,
+            zIndex: 1,
+            "&:hover, &:focus-within": {
+              textDecoration: "none",
+              [`& + ${Heading}`]: {
+                textDecoration: "underline",
+                textDecorationColor: "$secondary",
+              },
+            },
+          }}
+        />
+        <Heading aria-hidden as="h3" level="three">
           {props.title}
         </Heading>
         {props.description && (
-          <Text css={{ color: "$gray11", lineHeight: "$base" }}>
+          <Text aria-hidden css={{ color: "$gray11", lineHeight: "$base" }}>
             {props.description}
           </Text>
         )}
         <Flex css={{ alignItems: "center", gap: "$4" }}>
           <Avatar />
-          {props.publishedDate && <Time date={props.publishedDate} />}
+          {props.publishedDate && (
+            <Time aria-hidden date={props.publishedDate} />
+          )}
         </Flex>
       </Flex>
     </Flex>

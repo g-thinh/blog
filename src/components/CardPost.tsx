@@ -4,7 +4,7 @@ import Link, { LinkProps } from "./Link";
 import { Flex } from "./Primitive";
 import Tag from "./Tag";
 import { Heading, Text } from "./Typography";
-import Time from "./Time";
+import Time, { readTime } from "./Time";
 
 type CardPostProps = MDXFrontmatter & {
   href: LinkProps["href"];
@@ -12,6 +12,12 @@ type CardPostProps = MDXFrontmatter & {
 };
 
 export default function CardPost(props: CardPostProps) {
+  const screenReaderMessage = `${props.title}, ${
+    props.description
+  }, published on ${readTime(
+    props.publishedDate
+  )}, this post includes topics like ${props.tags?.toString()}`;
+
   return (
     <Flex
       as="article"
@@ -24,6 +30,7 @@ export default function CardPost(props: CardPostProps) {
     >
       <Link
         href={props.href}
+        screenReaderMessage={screenReaderMessage}
         css={{
           position: "absolute",
           top: 0,
@@ -41,6 +48,7 @@ export default function CardPost(props: CardPostProps) {
       <Flex stack="column" css={{ height: "100%", p: "$4" }}>
         {props.title && (
           <Heading
+            aria-hidden
             as="h3"
             level="three"
             css={{
@@ -52,17 +60,17 @@ export default function CardPost(props: CardPostProps) {
           </Heading>
         )}
         {props.publishedDate && (
-          <Time date={props.publishedDate} css={{ mt: "$4" }} />
+          <Time aria-hidden date={props.publishedDate} css={{ mt: "$4" }} />
         )}
         <Flex stack="column" css={{ flexGrow: 1, mt: "$1" }}>
           {props.description && (
-            <Text css={{ color: "$gray11", lineHeight: "$base" }}>
+            <Text aria-hidden css={{ color: "$gray11", lineHeight: "$base" }}>
               {props.description}
             </Text>
           )}
         </Flex>
         {props.tags && (
-          <Flex css={{ gap: "$2", flexWrap: "wrap", mt: "$2" }}>
+          <Flex aria-hidden css={{ gap: "$2", flexWrap: "wrap", mt: "$2" }}>
             {props.tags.map((tag) => (
               <Tag key={tag}>{tag}</Tag>
             ))}

@@ -1,4 +1,4 @@
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import type * as Stitches from "@stitches/react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { styled } from "styles/stitches.config";
@@ -34,14 +34,22 @@ export const Anchor = styled("a", baseTextStyles, {
 
 export type LinkProps = React.PropsWithChildren<NextLinkProps> & {
   type?: LinkVariantsEnum;
+  screenReaderMessage?: string;
   css?: Stitches.CSS;
 };
 
-export default function Link({ children, type, css, ...props }: LinkProps) {
+export default function Link({
+  children,
+  type,
+  css,
+  screenReaderMessage,
+  ...props
+}: LinkProps) {
   if (typeof props.href === "string" && props.href.match(/^(https?:)?\/\//)) {
     return (
       <Anchor href={props.href} type={type} target="_blank" css={css}>
         {children}
+        <VisuallyHidden.Root>{screenReaderMessage}</VisuallyHidden.Root>
       </Anchor>
     );
   }
@@ -50,6 +58,7 @@ export default function Link({ children, type, css, ...props }: LinkProps) {
     <NextLink passHref {...props}>
       <Anchor type={type} css={css}>
         {children}
+        <VisuallyHidden.Root>{screenReaderMessage}</VisuallyHidden.Root>
       </Anchor>
     </NextLink>
   );
