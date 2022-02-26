@@ -24,6 +24,8 @@ export default function PostTitle(props: PostTitleProps) {
           {props.publishedDate && (
             <Flex
               css={{
+                display: "inline-flex",
+                whiteSpace: "nowrap",
                 alignItems: "center",
                 gap: "$1",
               }}
@@ -32,15 +34,6 @@ export default function PostTitle(props: PostTitleProps) {
                 Published on{" "}
                 <Time css={{ display: "inline" }} date={props.publishedDate} />{" "}
               </DateText>
-              {props.lastUpdateDate && (
-                <DateText css={{ fontStyle: "italic" }}>
-                  - Last updated on{" "}
-                  <Time
-                    css={{ display: "inline", color: "$amber9" }}
-                    date={props.lastUpdateDate}
-                  />
-                </DateText>
-              )}
             </Flex>
           )}
         </Flex>

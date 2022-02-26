@@ -6,7 +6,6 @@ import path from "path";
 export type MDXFrontmatter = {
   title?: string;
   publishedDate?: Date;
-  lastUpdateDate?: Date;
   description?: string;
   imageUrl?: string;
   imageAltText?: string;
