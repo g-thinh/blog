@@ -3,10 +3,13 @@ import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 import path from "path";
 
-type MDXFrontmatter = {
+export type MDXFrontmatter = {
   title?: string;
   date?: Date;
   description?: string;
+  imageUrl?: string;
+  imageAltText?: string;
+  tags?: Array<string>;
 };
 
 export const LANDING_PATH = path.join(process.cwd(), "src/mdx");

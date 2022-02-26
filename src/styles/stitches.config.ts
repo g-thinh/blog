@@ -152,14 +152,12 @@ export const {
       full: "9999px",
     },
     shadows: {
-      md: "0 4px 6px -1px rgba(0, 0, 0, 0.1),0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-      lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-      xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1),0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-      "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-      about:
-        "2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),12.5px 12.5px 10px rgba(0, 0, 0, 0.035),22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),100px 100px 80px rgba(0, 0, 0, 0.07)",
-      large:
-        "1px 2px 2px hsl(0deg 0% 50% / 0.2),2px 4px 4px hsl(0deg 0% 50% / 0.2),4px 8px 8px hsl(0deg 0% 50% / 0.2),8px 16px 16px hsl(0deg 0% 50% / 0.2),16px 32px 32px hsl(0deg 0% 50%/ 0.2)",
+      cardpost:
+        "0px 2.8px 2.2px rgba(0, 0, 0, 0.02),0px 6.7px 5.3px rgba(0, 0, 0, 0.028),0px 12.5px 10px rgba(0, 0, 0, 0.035),0px 22.3px 17.9px rgba(0, 0, 0, 0.042),0px 41.8px 33.4px rgba(0, 0, 0, 0.05),0px 100px 80px rgba(0, 0, 0, 0.07)",
+      sm: "2.5px 2.5px 3.1px -10px rgba(0, 0, 0, 0.025),20px 20px 25px -10px rgba(0, 0, 0, 0.05)",
+      md: "3.2px 3.2px 2.3px rgba(0, 0, 0, 0.017),8.8px 8.8px 6.3px rgba(0, 0, 0, 0.025),21.1px 21.1px 15.1px rgba(0, 0, 0, 0.033),70px 70px 50px rgba(0, 0, 0, 0.05)",
+      lg: "2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),12.5px 12.5px 10px rgba(0, 0, 0, 0.035),22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),100px 100px 80px rgba(0, 0, 0, 0.07)",
+      xl: "3px 3px 1.7px -4px rgba(0, 0, 0, 0.024),6.3px 6.3px 4.1px -4px rgba(0, 0, 0, 0.035),10.3px 10.3px 7.1px -4px rgba(0, 0, 0, 0.043),15.1px 15.1px 11.2px -4px rgba(0, 0, 0, 0.05),21.4px 21.4px 16.7px -4px rgba(0, 0, 0, 0.057),30.5px 30.5px 24.3px -4px rgba(0, 0, 0, 0.065),45.9px 45.9px 35.2px -4px rgba(0, 0, 0, 0.076),80px 80px 50px -4px rgba(0, 0, 0, 0.1)",
     },
     zIndices: {},
     transitions: {},

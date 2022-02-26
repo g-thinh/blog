@@ -3,6 +3,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["localhost", "images.unsplash.com", "a.storyblok.com"],
+    domains: ["images.unsplash.com", "a.storyblok.com", "picsum.photos"],
   },
 };

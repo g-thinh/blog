@@ -33,8 +33,26 @@ export type ImageProps = NextImageProps & {
   css?: CSS;
 } & AspectRatio.AspectRatioProps;
 
-export default function Image({ css, ratio = 16 / 9, ...props }: ImageProps) {
+const fallbackImage: string = "https://picsum.photos/1200/1400";
+
+export default function Image({
+  css,
+  ratio = 16 / 9,
+  src,
+  ...props
+}: ImageProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const [imageSource, setImageSource] =
+    useState<ImageProps["src"]>(fallbackImage);
+
+  const handleOnLoadingComplete = () => {
+    if (src) {
+      setImageSource(src);
+    }
+
+    setIsLoading(false);
+  };
+
   return (
     <ImageAspectRatio ratio={ratio} css={css}>
       <>
@@ -42,7 +60,8 @@ export default function Image({ css, ratio = 16 / 9, ...props }: ImageProps) {
         <NextImage
           layout="fill"
           objectFit="cover"
-          onLoadingComplete={() => setIsLoading(false)}
+          onLoadingComplete={handleOnLoadingComplete}
+          src={imageSource}
           {...props}
         />
       </>

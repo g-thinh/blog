@@ -32,9 +32,7 @@ export const Anchor = styled("a", baseTextStyles, {
   },
 });
 
-type LinkVariants = Stitches.VariantProps<typeof Anchor>;
-
-type LinkProps = React.PropsWithChildren<NextLinkProps> & {
+export type LinkProps = React.PropsWithChildren<NextLinkProps> & {
   type?: LinkVariantsEnum;
   css?: Stitches.CSS;
 };

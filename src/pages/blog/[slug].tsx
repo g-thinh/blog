@@ -1,5 +1,4 @@
 import MDXComponent from "components/MDXComponent";
-import { Heading } from "components/Typography";
 import { InferGetStaticPropsType } from "next";
 import { BLOG_PATH, getSinglePost, getAllPosts } from "utils/mdxUtils";
 

@@ -1,8 +1,8 @@
-import { Box, Flex } from "./Primitive";
-import Image, { ImageProps } from "./Image";
-import { Heading, Text } from "./Typography";
 import { styled } from "styles/stitches.config";
+import Image, { ImageProps } from "./Image";
 import { Section } from "./Layout";
+import { Box, Flex } from "./Primitive";
+import { Heading, Text } from "./Typography";
 
 const CardContainer = styled(Flex, {
   position: "relative",
@@ -64,7 +64,7 @@ export default function CardAbout(props: CardAboutProps) {
             ratio={1}
             css={{
               br: "$full",
-              boxShadow: "$about",
+              boxShadow: "$lg",
             }}
           />
         </ImageContainer>
