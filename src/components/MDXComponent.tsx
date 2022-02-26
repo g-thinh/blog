@@ -3,12 +3,11 @@ import React, { useMemo } from "react";
 import { styled } from "styles/stitches.config";
 import Accordion from "./Accordion";
 import CardAbout from "./CardAbout";
+import Image, { ImageProps } from "./Image";
 import { Section, sectionStyles } from "./Layout";
 import Link from "./Link";
 import { List, ListItem, ListItemProps, ListProps } from "./Primitive";
 import SyntaxHighlighter from "./SyntaxHighlighter";
-import Image, { ImageProps } from "./Image";
-import PostTitle from "./PostTitle";
 import { Heading, HeadingProps, Text, TextProps } from "./Typography";
 
 const StyledText = styled(Text, sectionStyles, {

@@ -15,7 +15,7 @@ export default class AppDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <style
             id="stitches"
