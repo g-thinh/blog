@@ -44,15 +44,15 @@ export default function CardPost(props: CardPostProps) {
             as="h3"
             level="three"
             css={{
-              height: "4rem",
+              height: "min(4rem, max-content)",
               fontSize: "$xl",
             }}
           >
             {props.title}
           </Heading>
         )}
-        {props.date && <Time date={props.date} css={{ my: "$1" }} />}
-        <Flex stack="column" css={{ flexGrow: 1 }}>
+        {props.date && <Time date={props.date} css={{ mt: "$4" }} />}
+        <Flex stack="column" css={{ flexGrow: 1, mt: "$1" }}>
           {props.description && (
             <Text css={{ color: "$gray11", lineHeight: "$base" }}>
               {props.description}

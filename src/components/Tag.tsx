@@ -6,7 +6,8 @@ type TagProps = React.PropsWithChildren<{
 
 const StyledTag = styled("div", {
   display: "inline-flex",
-  width: "min-content",
+  width: "max-content",
+  whiteSpace: "nowrap",
   br: "$md",
   px: "$2",
   lineHeight: 1.5,

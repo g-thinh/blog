@@ -16,6 +16,14 @@ export async function getStaticProps() {
   const { code, frontmatter } = await getSinglePost("blog", LANDING_PATH);
   const posts = await getAllPosts(BLOG_PATH);
 
+  posts?.sort((a, b) => {
+    if (a.frontmatter.date && b.frontmatter.date) {
+      return +new Date(b.frontmatter?.date) - +new Date(a.frontmatter?.date);
+    } else {
+      return 0;
+    }
+  });
+
   return {
     props: {
       code,
