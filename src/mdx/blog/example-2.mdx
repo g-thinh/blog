@@ -1,13 +1,13 @@
 ---
 title: "Example 2 - Styling Components"
-date: "Fri Feb 25 2022 08:51:00"
+publishedDate: "Fri Feb 25 2022 08:51:00"
 imageUrl: "https://images.unsplash.com/photo-1483639033054-d6b9cf0eb19c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
 imageAltText: "Image provided by Unsplash, taken by Curioso Photography"
 description: "This is an example blog post about building components with Stitches"
 tags: ["styled-components", "CSS"]
 ---
 
-# This is an H1
+## Where to start?
 
 **Lorem ipsum dolor sit amet, consectetur adipiscing elit.** Suspendisse ut dignissim nulla, in varius odio.
 Duis ut libero a turpis pharetra faucibus. Vestibulum nunc neque, dignissim nec libero vel, tincidunt congue quam.
@@ -19,65 +19,3 @@ justo id lectus interdum finibus. Sed nec auctor leo, vitae accumsan leo. Suspen
 While exploring _JAMstack_ **applications**, `I came across` the thought of rebuilding my
 React portfolio website into a full fledged Next.js application with Statically
 Generated content that I could manage through a [headless CMS](https://www.storyblok.com/).
-
-- Oranges
-- Apples
-
-1. Oranges
-2. Apples
-
-After going through a bunch of different approaches as to how I asda sd as asda das rebuild by
-portfolio website, I started thinking about how I wanted to also write blog posts
-about code I come across, the idea finally solidified after exploring Storyblok
-and Next.js for my frameworks of choice.In fact, while this blog was being
-built, the team over at Storyblok published this amazingly well-timed guide on
-how to integrate their CMS to a Next.js framework.
-
-## Setting Up The Boilerplate For the Project
-
-Next.js is a framework built on React, and `provides` incredible out-of-the-box
-features that make it easier for developers to create full-stack applications.
-Page routing and API routes are highly opinionated so there is little to
-configure, underneath the hood the app will be running an express server.
-
-Additionally, it can be easily hosted on Vercel (the team that built Next.js)
-for additional optimizations. The ability to statically generate dynamic pages
-according to specifications built on Storyblok was also another selling point
-for me and felt like the most natural way to build the application.
-
-```tsx filename="awesome.js" hl="8" showlineNumbers
-export const ThemeProvider = ({ children }) => {
-  const [colorMode, rawSetColorMode] = React.useState(getInitialColorMode);
-  const setColorMode = (value) => {
-    rawSetColorMode(value);
-    // Persist it on update
-    window.localStorage.setItem("color-mode", value);
-  };
-  return (
-    <ThemeContext.Provider value={{ colorMode, setColorMode, testing }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-};
-```
-
-## This is the end
-
-Next.js is a framework built on React, and `provides` incredible out-of-the-box
-features that make it easier for developers to create full-stack applications.
-Page routing and API routes are highly opinionated so there is little to
-configure, underneath the hood the app will be running an express server.
-
-```css
-a > li,
-h1 {
-  background-color: red, @media-query (min-width: 768) {
-    width: 100% !important;
-  }
-}
-```
-
-Additionally, it can be easily hosted on Vercel (the team that built Next.js)
-for additional optimizations. The ability to statically generate dynamic pages
-according to specifications built on Storyblok was also another selling point
-for me and felt like the most natural way to build the application.

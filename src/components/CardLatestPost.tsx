@@ -32,6 +32,8 @@ export default function CardLatestPost(props: CardPostProps) {
           position: "absolute",
           top: 0,
           right: 0,
+          left: 0,
+          bottom: 0,
           zIndex: -1,
         }}
       >
@@ -109,7 +111,7 @@ export default function CardLatestPost(props: CardPostProps) {
         )}
         <Flex css={{ alignItems: "center", gap: "$4" }}>
           <Avatar />
-          {props.date && <Time date={props.date} />}
+          {props.publishedDate && <Time date={props.publishedDate} />}
         </Flex>
       </Flex>
     </Flex>

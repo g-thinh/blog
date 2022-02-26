@@ -49,7 +49,6 @@ export default function Image({
     if (src) {
       setImageSource(src);
     }
-
     setIsLoading(false);
   };
 

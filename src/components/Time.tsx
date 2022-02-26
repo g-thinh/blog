@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import { CSS } from "styles/stitches.config";
-import { Flex } from "./Primitive";
-import { Text } from "./Typography";
+import { CSS, styled } from "styles/stitches.config";
+import { Box, Flex } from "./Primitive";
+
 dayjs.extend(advancedFormat);
 dayjs.extend(LocalizedFormat);
 
@@ -12,12 +12,15 @@ type TimeProps = {
   css?: CSS;
 };
 
+const StyledTime = styled(Flex, {
+  fontSize: "$sm",
+  lineHeight: 1,
+});
+
 export default function Time({ date, css }: TimeProps) {
   return (
-    <Flex as="time" dateTime={dayjs(date).format("LL")} css={css}>
-      <Text as="abbr" css={{ fontSize: "$sm", lineHeight: 1 }}>
-        {dayjs(date).format("LL")}
-      </Text>
-    </Flex>
+    <StyledTime as="time" dateTime={dayjs(date).format("LL")} css={css}>
+      <Box as="abbr">{dayjs(date).format("LL")}</Box>
+    </StyledTime>
   );
 }

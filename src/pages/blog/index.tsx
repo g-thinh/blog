@@ -17,8 +17,11 @@ export async function getStaticProps() {
   const posts = await getAllPosts(BLOG_PATH);
 
   posts?.sort((a, b) => {
-    if (a.frontmatter.date && b.frontmatter.date) {
-      return +new Date(b.frontmatter?.date) - +new Date(a.frontmatter?.date);
+    if (a.frontmatter.publishedDate && b.frontmatter.publishedDate) {
+      return (
+        +new Date(b.frontmatter?.publishedDate) -
+        +new Date(a.frontmatter?.publishedDate)
+      );
     } else {
       return 0;
     }
@@ -60,7 +63,7 @@ export default function Blog(
                   title={post.frontmatter.title}
                   description={post.frontmatter.description}
                   imageUrl={post.frontmatter?.imageUrl}
-                  date={post.frontmatter.date}
+                  publishedDate={post.frontmatter.publishedDate}
                   imageAltText={post.frontmatter?.imageAltText}
                 />
               )
@@ -93,7 +96,7 @@ export default function Blog(
                   title={post.frontmatter.title}
                   description={post.frontmatter.description}
                   tags={post.frontmatter.tags}
-                  date={post.frontmatter.date}
+                  publishedDate={post.frontmatter.publishedDate}
                 />
               )
             );

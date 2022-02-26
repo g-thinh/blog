@@ -51,7 +51,9 @@ export default function CardPost(props: CardPostProps) {
             {props.title}
           </Heading>
         )}
-        {props.date && <Time date={props.date} css={{ mt: "$4" }} />}
+        {props.publishedDate && (
+          <Time date={props.publishedDate} css={{ mt: "$4" }} />
+        )}
         <Flex stack="column" css={{ flexGrow: 1, mt: "$1" }}>
           {props.description && (
             <Text css={{ color: "$gray11", lineHeight: "$base" }}>
