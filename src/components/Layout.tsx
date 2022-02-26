@@ -1,8 +1,9 @@
-import { css, styled, theme } from "styles/stitches.config";
+import { useTheme } from "next-themes";
+import Head from "next/head";
+import { css, styled } from "styles/stitches.config";
 import Footer from "./Footer";
 import Nav from "./Nav";
 import { Box, Flex } from "./Primitive";
-import Head from "next/head";
 
 const Main = styled(Box, {
   mt: "$10",
@@ -22,11 +23,17 @@ export const sectionStyles = css({
 export const Section = styled("section", sectionStyles);
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
   return (
     <>
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="theme-color" content={theme.colors.sky3.value} />
+        <meta
+          name="theme-color"
+          content={isDark ? "hsl(201, 74.6%, 12.2%)" : "currentColor"}
+        />
       </Head>
       <Flex stack="column" css={{ minHeight: "100vh" }}>
         <Nav />
