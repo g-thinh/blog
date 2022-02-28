@@ -6,27 +6,11 @@ import { Box } from "components/Primitive";
 import SEO from "components/SEO";
 import { Heading } from "components/Typography";
 import { InferGetStaticPropsType } from "next";
-import {
-  BLOG_PATH,
-  getAllPosts,
-  getSinglePost,
-  LANDING_PATH,
-} from "utils/mdxUtils";
+import { getAllPosts, getSinglePost, LANDING_PATH } from "utils/mdxUtils";
 
 export async function getStaticProps() {
   const { code, frontmatter } = await getSinglePost("blog", LANDING_PATH);
-  const posts = await getAllPosts(BLOG_PATH);
-
-  posts?.sort((a, b) => {
-    if (a.frontmatter.publishedDate && b.frontmatter.publishedDate) {
-      return (
-        +new Date(b.frontmatter?.publishedDate) -
-        +new Date(a.frontmatter?.publishedDate)
-      );
-    } else {
-      return 0;
-    }
-  });
+  const posts = await getAllPosts();
 
   return {
     props: {

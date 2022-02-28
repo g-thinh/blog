@@ -19,12 +19,12 @@ export function getSourceOfFile(fileName: string, contentPath: string) {
   return fs.readFileSync(path.join(contentPath, fileName), "utf-8");
 }
 
-export function getAllPosts(contentPath: string) {
+export function getAllPosts() {
   return fs
-    .readdirSync(contentPath)
+    .readdirSync(BLOG_PATH)
     .filter((path) => /\.mdx?$/.test(path))
     .map((fileName) => {
-      const source = getSourceOfFile(fileName, contentPath);
+      const source = getSourceOfFile(fileName, BLOG_PATH);
       const slug = fileName.replace(/\.mdx?$/, "");
       const full_slug = `/blog/${slug}`;
       const { data } = matter(source);
@@ -34,6 +34,16 @@ export function getAllPosts(contentPath: string) {
         slug: slug,
         full_slug,
       };
+    })
+    .sort((a, b) => {
+      if (a.frontmatter.publishedDate && b.frontmatter.publishedDate) {
+        return (
+          +new Date(b.frontmatter?.publishedDate) -
+          +new Date(a.frontmatter?.publishedDate)
+        );
+      } else {
+        return 0;
+      }
     });
 }
 
