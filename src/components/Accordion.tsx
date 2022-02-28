@@ -3,7 +3,6 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { keyframes } from "@stitches/react";
 import { styled } from "styles/stitches.config";
 import { baseTextStyles } from "./Typography";
-import { sectionStyles } from "./Layout";
 
 const slideDown = keyframes({
   from: { height: 0, opacity: 0.5 },
@@ -15,7 +14,7 @@ const slideUp = keyframes({
   to: { height: 0, opacity: 0 },
 });
 
-const StyledAccordion = styled(RadixAccordion.Root, sectionStyles, {
+const StyledAccordion = styled(RadixAccordion.Root, {
   backgroundColor: "transparent",
   display: "flex",
   flexDirection: "column",

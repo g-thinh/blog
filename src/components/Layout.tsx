@@ -20,7 +20,7 @@ export const sectionStyles = css({
   },
 });
 
-export const Section = styled("section", sectionStyles);
+export const Section = styled("div", sectionStyles);
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
   const { resolvedTheme } = useTheme();

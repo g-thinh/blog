@@ -1,3 +1,4 @@
+import { Section } from "components/Layout";
 import MDXComponent from "components/MDXComponent";
 import SEO from "components/SEO";
 import { InferGetStaticPropsType } from "next";
@@ -18,9 +19,9 @@ export default function About(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <>
+    <Section>
       <SEO meta={{ ...props.frontmatter }} />
       <MDXComponent code={props.code} />
-    </>
+    </Section>
   );
 }

@@ -41,46 +41,44 @@ export default function Home(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <>
+    <Section>
       <SEO meta={{ ...props.frontmatter }} />
       <MDXComponent code={props.code} />
-      <Section>
-        <Heading as="h2" level="two" css={{ color: "$secondary", mb: "$3" }}>
-          Latest Posts
-        </Heading>
-        <List css={{ gap: "$1" }}>
-          {props.posts?.map((post) => (
-            <ListItem key={post.frontmatter.title}>
-              <Link
-                href={post.full_slug}
-                css={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                }}
-              >
-                <Text css={{ lineHeight: "$normal " }}>
-                  {post.frontmatter.title}
-                  {props.frontmatter.publishedDate && (
-                    <Time
-                      format="ll"
-                      css={{
-                        ml: "$1",
+      <Heading as="h2" level="two" css={{ color: "$secondary", mb: "$3" }}>
+        Latest Posts
+      </Heading>
+      <List css={{ gap: "$1" }}>
+        {props.posts?.map((post) => (
+          <ListItem key={post.frontmatter.title}>
+            <Link
+              href={post.full_slug}
+              css={{
+                display: "inline-flex",
+                alignItems: "center",
+              }}
+            >
+              <Text css={{ lineHeight: "$normal " }}>
+                {post.frontmatter.title}
+                {props.frontmatter.publishedDate && (
+                  <Time
+                    format="ll"
+                    css={{
+                      ml: "$1",
+                      color: "$gray10",
+                      fontStyle: "italic",
+                      ":before": {
                         color: "$gray10",
-                        fontStyle: "italic",
-                        ":before": {
-                          color: "$gray10",
-                          content: " - ",
-                        },
-                      }}
-                      date={post.frontmatter.publishedDate as Date}
-                    />
-                  )}
-                </Text>
-              </Link>
-            </ListItem>
-          ))}
-        </List>
-      </Section>
-    </>
+                        content: " - ",
+                      },
+                    }}
+                    date={post.frontmatter.publishedDate as Date}
+                  />
+                )}
+              </Text>
+            </Link>
+          </ListItem>
+        ))}
+      </List>
+    </Section>
   );
 }

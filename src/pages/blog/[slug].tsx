@@ -2,7 +2,7 @@ import Image from "components/Image";
 import { Section } from "components/Layout";
 import MDXComponent from "components/MDXComponent";
 import PostTitle from "components/PostTitle";
-import { Box } from "components/Primitive";
+import { Box, Flex } from "components/Primitive";
 import SEO from "components/SEO";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { BLOG_PATH, getAllPosts, getSinglePost } from "utils/mdxUtils";
@@ -34,9 +34,9 @@ export default function BlogPost(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <>
+    <Section>
       <SEO meta={{ ...props.frontmatter }} />
-      <Section css={{ display: "flex", flexDirection: "column", gap: "$4" }}>
+      <Flex stack="column" css={{ gap: "$4" }}>
         <PostTitle {...props.frontmatter} />
         <Box css={{ my: "$5" }}>
           <Image
@@ -48,8 +48,8 @@ export default function BlogPost(
             }}
           />
         </Box>
-      </Section>
+      </Flex>
       <MDXComponent code={props.code} />
-    </>
+    </Section>
   );
 }
