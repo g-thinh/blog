@@ -10,26 +10,34 @@ dayjs.extend(LocalizedFormat);
 type TimeProps = {
   date: Date;
   css?: CSS;
+  format?: "LL" | "ll";
 } & React.ComponentProps<typeof StyledTime>;
 
 const StyledTime = styled(Flex, {
-  fontSize: "$sm",
-  lineHeight: 1,
+  display: "inline-flex",
 });
 
-export function readTime(date?: Date) {
-  return dayjs(date).format("LL");
+export function readTime({
+  date,
+  format = "LL",
+}: Pick<TimeProps, "format" | "date">) {
+  return dayjs(date).format(format);
 }
 
-export default function Time({ date, css, ...props }: TimeProps) {
+export default function Time({
+  date,
+  css,
+  format = "LL",
+  ...props
+}: TimeProps) {
   return (
     <StyledTime
       as="time"
-      dateTime={dayjs(date).format("LL")}
+      dateTime={dayjs(date).format(format)}
       css={css}
       {...props}
     >
-      <Box as="abbr">{dayjs(date).format("LL")}</Box>
+      <Box as="abbr">{dayjs(date).format(format)}</Box>
     </StyledTime>
   );
 }

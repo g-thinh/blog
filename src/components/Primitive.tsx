@@ -20,11 +20,15 @@ export const List = styled("ul", {
   display: "flex",
   flexDirection: "column",
   gap: "$2",
-  px: "$8",
+
   ml: "$5",
   listStyleType: "disc",
   "::marker": {
     fontFamily: "$body",
+  },
+
+  "@lg": {
+    px: "$8",
   },
 });
 

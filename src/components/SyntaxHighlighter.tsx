@@ -19,9 +19,11 @@ const ScrollContainer = styled(ScrollArea.Root, {
 
 const Pre = styled("pre", baseTextStyles, {
   fontFamily: "$code",
+  fontSize: "$md",
   p: "$4",
   borderRadius: "inherit",
   "@xl": {
+    fontSize: "$lg",
     p: "$8",
   },
 });
