@@ -11,9 +11,13 @@ type CardPostProps = MDXFrontmatter & {
 };
 
 export default function CardLatestPost(props: CardPostProps) {
-  const screenReaderMessage = `${props.title}, ${
-    props.description
-  }, published on ${readTime(props.publishedDate)}`;
+  const getScreenReaderMessage = () => {
+    let message = `${props.title}, ${props.description}`;
+    if (props.publishedDate) {
+      message = message + `, ${readTime(props.publishedDate)}`;
+    }
+    return message;
+  };
 
   return (
     <Flex
@@ -93,7 +97,7 @@ export default function CardLatestPost(props: CardPostProps) {
       >
         <Link
           href={props.href}
-          screenReaderMessage={screenReaderMessage}
+          screenReaderMessage={getScreenReaderMessage()}
           css={{
             position: "absolute",
             top: 0,

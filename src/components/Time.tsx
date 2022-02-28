@@ -17,10 +17,7 @@ const StyledTime = styled(Flex, {
   display: "inline-flex",
 });
 
-export function readTime({
-  date,
-  format = "LL",
-}: Pick<TimeProps, "format" | "date">) {
+export function readTime(date: Date, format: TimeProps["format"] = "LL") {
   return dayjs(date).format(format);
 }
 

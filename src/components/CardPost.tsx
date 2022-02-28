@@ -12,11 +12,17 @@ type CardPostProps = MDXFrontmatter & {
 };
 
 export default function CardPost(props: CardPostProps) {
-  const screenReaderMessage = `${props.title}, ${
-    props.description
-  }, published on ${readTime(
-    props.publishedDate
-  )}, this post includes topics like ${props.tags?.toString()}`;
+  const getScreenReaderMessage = () => {
+    let message = `${props.title}, ${props.description}`;
+    if (props.publishedDate) {
+      message = message + `, ${readTime(props.publishedDate)}`;
+    }
+    if (props.tags) {
+      message =
+        message + `, this post includes topics like ${props.tags?.toString()}`;
+    }
+    return message;
+  };
 
   return (
     <Flex
@@ -30,7 +36,7 @@ export default function CardPost(props: CardPostProps) {
     >
       <Link
         href={props.href}
-        screenReaderMessage={screenReaderMessage}
+        screenReaderMessage={getScreenReaderMessage()}
         css={{
           position: "absolute",
           top: 0,
