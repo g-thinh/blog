@@ -50,6 +50,7 @@ export default function Blog(
                 imageUrl={post.frontmatter?.imageUrl}
                 publishedDate={post.frontmatter.publishedDate}
                 imageAltText={post.frontmatter?.imageAltText}
+                tags={post.frontmatter.tags}
               />
             )
           );

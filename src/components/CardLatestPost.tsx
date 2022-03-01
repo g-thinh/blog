@@ -3,6 +3,7 @@ import Avatar from "./Avatar";
 import Image from "./Image";
 import Link, { LinkProps } from "./Link";
 import { Box, Flex } from "./Primitive";
+import Tag from "./Tag";
 import Time, { readTime } from "./Time";
 import { Heading, Text } from "./Typography";
 
@@ -117,6 +118,11 @@ export default function CardLatestPost(props: CardPostProps) {
         <Heading aria-hidden as="h3" level="three">
           {props.title}
         </Heading>
+        <Flex css={{ gap: "$4" }}>
+          {props.tags?.map((tag) => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
+        </Flex>
         {props.description && (
           <Text aria-hidden css={{ color: "$gray11", lineHeight: "$base" }}>
             {props.description}
