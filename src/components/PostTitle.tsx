@@ -2,6 +2,7 @@ import { styled } from "styles/stitches.config";
 import { MDXFrontmatter } from "utils/mdxUtils";
 import Avatar from "./Avatar";
 import { Flex } from "./Primitive";
+import Tag from "./Tag";
 import Time from "./Time";
 import { Heading, Text } from "./Typography";
 
@@ -37,6 +38,11 @@ export default function PostTitle(props: PostTitleProps) {
             </Flex>
           )}
         </Flex>
+      </Flex>
+      <Flex css={{ gap: "$4" }}>
+        {props.tags?.map((tag) => (
+          <Tag key={tag}>{tag}</Tag>
+        ))}
       </Flex>
     </>
   );
