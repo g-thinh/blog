@@ -6,11 +6,11 @@ import { Box } from "components/Primitive";
 import SEO from "components/SEO";
 import { Heading } from "components/Typography";
 import { InferGetStaticPropsType } from "next";
-import { getAllPosts, getSinglePost, LANDING_PATH } from "utils/mdxUtils";
+import { getPosts, getSinglePost, LANDING_PATH } from "utils/mdxUtils";
 
 export async function getStaticProps() {
   const { code, frontmatter } = await getSinglePost("blog", LANDING_PATH);
-  const posts = await getAllPosts();
+  const posts = await getPosts();
 
   return {
     props: {

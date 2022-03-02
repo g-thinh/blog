@@ -6,11 +6,11 @@ import SEO from "components/SEO";
 import Time from "components/Time";
 import { Heading, Text } from "components/Typography";
 import { InferGetStaticPropsType } from "next";
-import { getAllPosts, getSinglePost, LANDING_PATH } from "utils/mdxUtils";
+import { getPosts, getSinglePost, LANDING_PATH } from "utils/mdxUtils";
 
 export async function getStaticProps() {
   const { code, frontmatter } = await getSinglePost("home", LANDING_PATH);
-  const posts = await getAllPosts();
+  const posts = await getPosts({ limit: 5 });
 
   return {
     props: {

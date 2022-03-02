@@ -19,8 +19,12 @@ export function getSourceOfFile(fileName: string, contentPath: string) {
   return fs.readFileSync(path.join(contentPath, fileName), "utf-8");
 }
 
-export function getAllPosts() {
-  return fs
+type GetPostsArgs = {
+  limit?: number;
+};
+
+export function getPosts(args?: GetPostsArgs) {
+  const posts = fs
     .readdirSync(BLOG_PATH)
     .filter((path) => /\.mdx?$/.test(path))
     .map((fileName) => {
@@ -34,17 +38,24 @@ export function getAllPosts() {
         slug: slug,
         full_slug,
       };
-    })
-    .sort((a, b) => {
-      if (a.frontmatter.publishedDate && b.frontmatter.publishedDate) {
-        return (
-          +new Date(b.frontmatter?.publishedDate) -
-          +new Date(a.frontmatter?.publishedDate)
-        );
-      } else {
-        return 0;
-      }
     });
+
+  posts.sort((a, b) => {
+    if (a.frontmatter.publishedDate && b.frontmatter.publishedDate) {
+      return (
+        +new Date(b.frontmatter?.publishedDate) -
+        +new Date(a.frontmatter?.publishedDate)
+      );
+    } else {
+      return 0;
+    }
+  });
+
+  if (args?.limit) {
+    posts.splice(args.limit);
+  }
+
+  return posts;
 }
 
 export async function getSinglePost(slug: string, contentPath: string) {

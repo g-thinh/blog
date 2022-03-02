@@ -5,7 +5,7 @@ import PostTitle from "components/PostTitle";
 import { Box, Flex } from "components/Primitive";
 import SEO from "components/SEO";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import { BLOG_PATH, getAllPosts, getSinglePost } from "utils/mdxUtils";
+import { BLOG_PATH, getPosts, getSinglePost } from "utils/mdxUtils";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const blogPostName = context?.params?.slug as string;
@@ -20,7 +20,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export const getStaticPaths = async () => {
-  const paths = getAllPosts().map(({ slug }) => ({
+  const paths = getPosts().map(({ slug }) => ({
     params: { slug },
   }));
 
