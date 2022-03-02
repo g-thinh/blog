@@ -1,0 +1,52 @@
+---
+title: Using Next/Image with Theme-UI
+publishedDate: Tue Aug 17 2021 19:00:00
+imageUrl: https://images.unsplash.com/photo-1462556791646-c201b8241a94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1765&q=80
+imageAltText: Image provided by Unsplash, taken by Héctor J. Rivas
+description: A quick tutorial on how to leverage Next/Image with Theme-UI
+tags: [Theme-UI, Next.js]
+---
+
+Next.js comes packed with optimizations, notably with beimages since version 10
+got released. This is ideal for web apps with tons of media content such as 
+images. Essentially, instead of images being optimized at build time, they are
+lazy loaded by default (meaning they are loaded as users scroll).
+
+These are some huge benefits, and we definitely want them rolling with our Theme-UI
+project. Since `next/image` already provides a React component to use, we can 
+wrap around with an incredibly useful Theme-UI component called the `<AspectRatio>`. 
+As the name aptly implies, this component preserves the aspect ratio of any image it wraps
+around through its `ratio` prop.
+
+Taking a look at the code, we come up with the following:
+
+```typescript title="Image.tsx"
+import NextImage from "next/image";
+import { AspectRatio } from "@theme-ui/components";
+
+type ImageProps = React.ComponentProps<typeof NextImage> &
+  React.ComponentProps<typeof AspectRatio>;
+
+export function Image({ ratio, ...props }: ImageProps) {
+  if (!ratio) {
+    return <NextImage {...props} />;
+  }
+
+  return (
+    <AspectRatio ratio={ratio}>
+      <NextImage {...props} />
+    </AspectRatio>
+  );
+}
+```
+
+And voilà! We have our `<Image>` component ready to use. There is no particular
+magic behind this component, it actually uses a well-known padding trick to 
+calculate the appropriate width/height for the image. `NextImage` will naturally
+takes whatever space is available using the `layout` prop with the value of `fill`.
+
+Of course, we should also be able to choose a width or height using the component
+itself if no aspect ratio is passed.
+
+And that's really it, you now have a versatile component to render images at any
+size.

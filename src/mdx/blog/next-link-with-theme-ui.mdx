@@ -1,0 +1,344 @@
+---
+title: Using Next/Link with Theme-UI
+publishedDate: Tue Aug 17 2021 19:00:00
+imageUrl: https://images.unsplash.com/photo-1513346940221-6f673d962e97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80
+imageAltText: Image provided by Unsplash, taken by Rene Böhmer
+description: A tutorial on how to build a custom Link component for Next.js using Theme-UI
+tags: [Theme-UI, Next.js]
+---
+
+[Theme-UI](https://theme-ui.com/components) provides a wide set of primitive
+components to build reusable UI. This naturally makes it easy to work with a
+React-based framework like Next.js. In this tutorial, I'll show you how to make
+use of the `next/link` component in any Theme-UI project.
+
+## Creating a Link Component
+
+Next.js provides native client side routing with its internal
+file-system based router through it's `Link` component, which is actually
+itself a wrapper for an anchor tag. Theme-UI provides its own primitive anchor
+component named similarly which we will use to interface with our design system
+while still retaining that SPA feeling.
+
+Initially, Next.js proposes its use case for the Link to be like so:
+
+```js
+import Link from "next/link";
+
+function LinkExample() {
+  return (
+    <Link href="/home">
+      <a>Go Home</a>
+    </Link>
+  );
+}
+```
+
+This might feel awkward at first leaving an anchor without an `href`, but rest
+assured the folks behind Next.js know what they are up to. Essentially, the
+wrapping `Link` injects the routing magic into its child element, which is
+expected to be an `<a/>`. 
+
+If you are using the recommended `eslint-config-next` package for linting 
+Next.js, you won't get any linting errors for leaving out the `href` attribute
+in an anchor tag. Find out more about this over [here](https://nextjs.org/docs/basic-features/eslint).
+
+That being said, let's create our own fully loaded Link component that resonates
+with Theme-UI, with the following features:
+
+- Opt into using `Next/Link` for client-side routing transitions.
+- Active routing, add some style for links that match the current URL.
+- External links, render a regular anchor tag for links outside of our project.
+- Button links, render a link that looks like a button.
+
+Without wasting any more time, let's jump into the code starting with the
+basic Link.
+
+```tsx
+// components/Link.tsx
+import NextLink from "next/link";
+import { Link as Anchor } from "theme-ui";
+
+type LinkProps = React.PropsWithChildren<{}> &
+  React.ComponentProps<typeof Anchor>;
+
+export function Link({ children, href, ...props }: LinkProps) {
+  return (
+    <NextLink href={href}>
+      <Anchor
+        color="text"
+        sx={{
+          display: "inline-flex",
+          fontFamily: "body",
+          color: "text",
+          textDecoration: "none",
+          alignItems: "center",
+          ":hover": {
+            cursor: "pointer",
+            textDecoration: "underline",
+          },
+        }}
+        {...props}
+      >
+        {children}
+      </Anchor>
+    </NextLink>
+  );
+}
+```
+
+And that's really it! We only switched out the default `<a/>` tag with the 
+Theme-UI anchor with a few added styles, of course to trim the code a bit more 
+we can add these styles into our `theme.ts` file as the default for all anchor tags.
+This of course requires you to have a theme ready with the `ThemeProvider`
+component already into your `_app.tsx`.
+
+```ts
+// styles/theme.ts
+import type { Theme } from "theme-ui";
+
+export const theme: Theme = {
+  /* ...other tokens */
+  styles: {
+    a: {
+      display: "inline-flex",
+      fontFamily: "body",
+      fontSize: [3, 4],
+      color: "text",
+      textDecoration: "none",
+      alignItems: "center",
+      ":hover": {
+        cursor: "pointer",
+        textDecoration: "underline",
+      },
+      ":focus-visible": {
+        textDecoration: "underline",
+      },
+    },
+  },
+};
+```
+
+
+## Making The Active Link
+
+If you've used `react-router` before, than you might've remembered that it exposes
+a component called `<NavLink/>`, which was a variant of it's own Link with
+the `activeClassName` prop that gets added when the current URL of the page matches with
+it's `href`. We can use that same logic to our custom Link with the `useRouter()`
+hook provided by `next-router` for some conditional styling.
+
+```typescript title="Link.tsx - Active Link Variant" hl="2,9,10,14" showlineNumbers
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { Link as Anchor } from "theme-ui";
+
+type LinkProps = React.PropsWithChildren<{}> &
+  React.ComponentProps<typeof Anchor>;
+
+export function Link({ children, href, ...props }: LinkProps) {
+  const router = useRouter();
+  const isActive = router.asPath === href;
+
+  return (
+    <NextLink href={href}>
+      <Anchor color={isActive ? "primary" : "text"} {...props}>
+        {children}
+      </Anchor>
+    </NextLink>
+  );
+}
+```
+
+## Making The External Link Variant
+
+Next, we want our component to handle external links, by it's own implementation,
+`next/link` expects to receive an internal route. We can handle external routes 
+with some good old regex magic with this addition:
+
+```typescript title="Link.tsx - External Link Variant" hl="12...19" showlineNumbers
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { Link as Anchor } from "theme-ui";
+
+type LinkProps = React.PropsWithChildren<{}> &
+  React.ComponentProps<typeof Anchor>;
+
+export function Link({ children, href, ...props }: LinkProps) {
+  const router = useRouter();
+  const isActive = router.asPath === href;
+
+  if (href.match(/^(https?:)?\/\//)) {
+    return (
+      <Anchor href={href} target="_blank" {...props}>
+        {children}
+      </Anchor>
+    );
+  }
+
+  return (
+    <NextLink href={href}>
+      <Anchor color={isActive ? "primary" : "text"} {...props}>
+        {children}
+      </Anchor>
+    </NextLink>
+  );
+}
+```
+
+As an added bonus, let's make this external link more apparent by adding an
+icon next to the link. I personally prefer using
+[react-icons](https://react-icons.github.io/react-icons/icons?name=fi) as my icon
+library of choice for this. Since Theme-UI doesn't quite expose its `sx` props
+so easily to other React components, this usally calls for some
+[JSX pragma](https://theme-ui.com/sx-prop), but it's not everyone's cup of tea, 
+so instead we could build our own `<Icon/>` component.
+
+```typescript
+import { Box } from "theme-ui";
+
+type IconProps = { size?: number } & 
+  React.ComponentProps<typeof Box>;
+
+function Icon({ size, ...props }: IconProps) {
+  return <Box sx={{ width: size, height: size }} {...props} />;
+}
+```
+
+As mentioned before, we will be using the feather icons from `react-icons`, as
+they are bundled as ready to use React components. We would want to maybe control
+the size of icons via a prop and the other utility props for playing
+with colours, margin and paddings by spreading the props from our `Box` primitive.
+
+Now you might be thinking, what the heck, this is just a `<div/>` underneath, how
+can it possibly render the icons we need? A-ha, this is where the fun truly starts
+with the `as` [polymorphic prop](https://styled-components.com/docs/api#as-polymorphic-prop)
+which was originally inspired by `styled-components` but made its way to Theme-UI
+since it was built with `emotion` (which of course implementated a similar API,
+isn't that perfect?). This prop will hijack what's being rendered into whatever
+custom component or HTML tag you pass it, while preserving styles. That being
+said, let there be icons ✨!
+
+```typescript title="Link.tsx - With External Link Icon" hl="2,3,8...14,23" showlineNumbers
+import NextLink from "next/link";
+import { Link as Anchor, Box } from "theme-ui";
+import { FiExternalLink } from "react-icons/fi";
+
+type LinkProps = React.PropsWithChildren<{}> &
+  React.ComponentProps<typeof Anchor>;
+
+type IconProps = { size?: number } & 
+  React.ComponentProps<typeof Box>;
+
+function Icon({ size, ...props }: IconProps) {
+  return <Box sx={{ width: size, height: size }} {...props} />;
+}
+
+export function Link({ children, href, ...props }: LinkProps) {
+  const router = useRouter();
+  const isActive = router.asPath === href;
+  
+  if (href.match(/^(https?:)?\/\//)) {
+    return (
+      <Anchor href={href} color="text" target="_blank" {...props}>
+        {children}
+        <Icon as={FiExternalLink} size={16} ml={1} aria-hidden />
+      </Anchor>
+    );
+  }
+
+  return (
+    <NextLink href={href}>
+      <Anchor color={isActive ? "primary" : "text"} {...props}>
+        {children}
+      </Anchor>
+    </NextLink>
+  );
+}
+```
+
+## Making The Button Variant
+
+This one pretty much comes as a freebie. Utilizing the `as` prop seen previously,
+we can do the same here and render our link component as a button. If we don't want
+to abstract the button styles into the component itself through some kind of variant prop
+(not recommended since the API already offers [variants](https://theme-ui.com/guides/variants/))
+, we can instead make it a sub-component via [JSX dot notation](https://reactjs.org/docs/jsx-in-depth.html#using-dot-notation-for-jsx-type).
+This pattern is particularly useful to keep imports leaner and extending functionality
+to components. At this point, with this last feature, the final code should look like this:
+
+```typescript title="Link.tsx - Button Link Variant" hl="38...54" showlineNumbers
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { Link as Anchor, Box, Button } from "theme-ui";
+import { FiExternalLink } from "react-icons/fi";
+
+type LinkProps = React.PropsWithChildren<{}> &
+  React.ComponentProps<typeof Anchor>;
+
+type IconProps = { size?: number } & 
+  React.ComponentProps<typeof Box>;
+
+function Icon({ size, ...props }: IconProps) {
+  return <Box sx={{ width: size, height: size }} {...props} />;
+}
+
+export function Link({ children, href, ...props }: LinkProps) {
+  const router = useRouter();
+  const isActive = router.asPath === href;
+  
+  if (href.match(/^(https?:)?\/\//)) {
+    return (
+      <Anchor href={href} color="text" target="_blank" {...props}>
+        {children}
+        <Icon as={FiExternalLink} size={16} ml={1} aria-hidden />
+      </Anchor>
+    );
+  }
+
+  return (
+    <NextLink href={href}>
+      <Anchor color={isActive ? "primary" : "text"} {...props}>
+        {children}
+      </Anchor>
+    </NextLink>
+  );
+}
+
+Link.Button = function LinkButton({
+  children,
+  href,
+  ...props
+}: LinkProps) {
+  return (
+    <Link
+      as={Button}
+      href={href}
+      sx={{ "&:hover": { textDecoration: "none" } }}
+      {...props}
+    >
+      {children}
+    </Link>
+  );
+};
+```
+
+And just like that we have our fully loaded custom Link component that can handle
+all of our Next.js routing needs 🔥.
+
+### Where's My Link Preview?
+
+Noticed something off? If you've been using browsers long enough, you'll notice
+that you don't get link previews on the bottom left of your window for some
+links (just hover over the links to see this). This behaviour can be expected 
+since `next/link` only exposes a wrapping element that injects the `href` at runtime.
+Inspecting the DOM will reveal that the internal link above has no `href` 🤯!
+
+Fear not, this isn't quite the end, simply pass along the `passHref` prop to
+your component and you'll have that sweet mouse over feature back. You can read
+up on this cool browser feature over [here](http://sites.cognitivescience.co/knowledgebase/resources/using-google-sites/creating-mouseover-text-with-html#TOC-Using-A-Tag).
+
+## Final Thoughts
+
+Hope this tutorial was helpful for those looking to jump into Next.js with a
+design focused CSS-in-JS framework like Theme-UI.

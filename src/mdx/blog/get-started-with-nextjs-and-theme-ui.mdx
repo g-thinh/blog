@@ -1,0 +1,337 @@
+---
+title: Getting started with Nextjs and Theme-UI
+publishedDate: Sun Aug 15 2021 15:00:00
+imageUrl: https://images.unsplash.com/photo-1615818499660-30bb5816e1c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2064&q=80
+imageAltText: Image provided by Unsplash, taken by Petar Petkovski
+description: Tutorial on creating a Nextjs project with Typescript and Theme-UI
+tags: [Theme-UI, Next.js]
+---
+
+While building this blog, I found the combination of Next.js and Theme-UI to be
+absolutely amazing with the former providing a top-of-the-class routing solution
+and the latter bringing consistency and a source of truth to your CSS by
+creating an interface to your code and design system. If you are interested in
+giving this a go, then let's move on! Otherwise, feel free to grab the repo
+[here.](https://github.com/g-thinh/nextjs-themeui-ts-template)
+
+## Installing Next.js
+
+Like any typical project, we start off with a `create-next-app` command followed
+by a few depedencies for enabling Typescript and linting.
+
+```terminal
+npx create-next-app nextjs-themeui-project
+yarn add -D typescript @types/node @types/react
+touch tsconfig.json
+```
+
+Next.js will automatically fill in the `tsconfig` with some defaults once you
+run `next dev` so now we can start writing some typescript starting with
+replacing the current pages with our own `_app.tsx` and `_document.tsx`.
+
+```tsx
+// pages/_app.tsx
+import type { AppProps } from "next/app";
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+```
+
+This is where we will introduce the `ThemeProvider` from Theme-UI to our app,
+additionally, Theme-UI uses [emotion](https://emotion.sh/docs/ssr#nextjs) under
+the hood, which currently provides Server side rendering (SSR) capabilities out
+of the box with little to no configuration.
+
+```tsx
+// pages/_document.tsx
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from "next/document";
+
+export default class AppDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
+  }
+
+  render() {
+    return (
+      <Html>
+        <Head>
+          <title>Nextjs + ThemeUI</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+```
+
+And of course, to actually render a page, we can start off with a simple
+`index.tsx` page.
+
+```tsx
+// pages/index.tsx
+import Head from "next/head";
+
+export default function Home() {
+  return (
+    <div>
+      <Head>
+        <title>Nextjs + ThemeUI</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <h1>My Theme-UI Project</h1>
+    </div>
+  );
+}
+```
+
+Next.js relies on a file-routing based system which means you should name your
+pages according to the folder hierarchy. For more info see
+[here](https://nextjs.org/docs/routing/introduction)
+
+## Adding Theme-UI
+
+At this point, we are now set to install our Theme-UI library with the command
+`yarn add theme-ui`. Once installed, we will need to update our files to
+interface with the API as well as add a `theme.ts` file to hold all of our
+design tokens, which are basically keys and values of CSS we would want to use.
+The documentation provides a few themes in this [demo](https://theme-ui.com/demo/)
+to get started. We'll pick my personal favorite, `deep`!
+
+You can know delete any `css` files under the styles folder, and replace it with
+your theme file.
+
+```ts
+// styles/theme.ts
+import type { Theme } from "theme-ui";
+
+export const theme: Theme = {
+  colors: {
+    text: "hsl(210, 50%, 96%)",
+    background: "hsl(230, 25%, 18%)",
+    primary: "hsl(260, 100%, 80%)",
+    secondary: "hsl(290, 100%, 80%)",
+    highlight: "hsl(260, 20%, 40%)",
+    purple: "hsl(290, 100%, 80%)",
+    muted: "hsla(230, 20%, 0%, 20%)",
+    gray: "hsl(210, 50%, 60%)",
+  },
+  fonts: {
+    body: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    heading: "inherit",
+    monospace: "Menlo, monospace",
+  },
+  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
+  fontWeights: {
+    body: 400,
+    heading: 700,
+    display: 900,
+  },
+  lineHeights: {
+    body: 1.5,
+    heading: 1.25,
+  },
+};
+```
+
+We will take a look at what these tokens represent in later post, for now we have
+our theme ready to be consumed. Similar to most CSS-in-JS solutions, Theme-UI
+comes with a `ThemeProvider` context that will inject our tokens where they are
+needed. We can do so by tweaking our `_app.tsx` file like so.
+
+```tsx
+// pages/_app.tsx
+import type { AppProps } from "next/app";
+import { ThemeProvider } from "@theme-ui/core";
+import { theme } from "../styles/theme";
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ThemeProvider theme={theme}>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
+}
+```
+
+Next, we will need to add a script to avoid one of the modern web's biggest
+annoyances, the dreaded [Flash of Incorrect Theme](https://css-tricks.com/flash-of-inaccurate-color-theme-fart/)
+caused by server side rehydration of markup. This is a pretty big issue if you
+want a painless dark mode experience, and fortunately Theme-UI solves that problem
+in a typical one-liner fashion. Alot of great minds have put together their thoughts
+on this, which I'll share at the end, but for now simply add this line. Even
+though our theme hasn't been setup for a Dark mode, it can be done so at a later
+time without too much hassle.
+
+```tsx
+// pages/_document.tsx
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from "next/document";
+import { InitializeColorMode } from "@theme-ui/color-modes";
+
+export default class AppDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
+  }
+
+  render() {
+    return (
+      <Html>
+        <Head>
+          <title>Nextjs + ThemeUI</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+          <InitializeColorMode />
+        </body>
+      </Html>
+    );
+  }
+}
+```
+
+And there you have it, Theme-UI is now fully integrated to your Next.js project,
+ready to build beautifully themed components.
+
+## What Now? Where's My UI?
+
+Before jumping into building UI components, it's always a best practice to be
+familiar with the API you will interacting with. Luckily, the folks behind
+Theme-UI sought out to create the best developper experience possible, especially when it comes to
+code hygiene which is achieved through typescript support and practical utility
+functions for styling components on the fly.
+
+I'd love to share my tips and tricks in another tutorial, but this short and sweet
+[documentation](https://theme-ui.com/api) should be enough to get started. I hope
+to write posts about some of the UI components I've built for my blog.
+
+This concludes most of the tutorial, you can check out the repo on my
+[github](https://github.com/g-thinh/nextjs-themeui-ts-template). The following
+contains a few goodies I've found useful when working with this setup.
+
+## Bonus: Global Resets
+
+Every good project should start with a CSS global styles 🌎. This can be done in
+a number of ways, but since Theme-UI comes with `emotion` we can make use of its
+`<Global/>` component to create our own CSS reset.
+
+```tsx
+// styles/Reset.tsx
+import { css, Global, GlobalProps } from "@emotion/react";
+
+export function Reset(props: GlobalProps) {
+  return (
+    <Global
+      {...props}
+      styles={css`
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+            Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+      `}
+    />
+  );
+}
+```
+
+Importing this into our `_app.tsx` file will do just the trick!
+
+```tsx
+// pages/_app.tsx
+import type { AppProps } from "next/app";
+import { ThemeProvider } from "@theme-ui/core";
+import { theme } from "../styles/theme";
+import { Reset } from "../styles/Reset";
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ThemeProvider theme={theme}>
+      <Reset styles />
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
+}
+```
+
+## Bonus: Gimme Some Lint
+
+If we are truly striving for the best DX _(Developer eXperience)_, then we definitely
+need some linting going on! One of my favourite ways of doing this is actually with
+a few extra lines in the `package.json` file. As of [Next.js 11](https://nextjs.org/blog/next-11),
+the framework now comes with ESLint support in by way of a library. Next.js is
+a fairly opinionated framework with stricter rules surrounding certain use-cases.
+It previously relied on a bunch of eslint packages to do that work. Now we only
+need a single package 🔥.
+
+```terminal
+yarn add -D eslint eslint-config-next
+```
+
+This is particularly helpful when working with Next.js for the first time as the
+linting will highlight specific Next.js only optimizations that are recommended
+(try adding an `<img/>` tag in your `index.tsx` page to see in it action).
+
+```json
+// package.json
+{
+  "name": "nextjs-themeui-ts-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "11.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "theme-ui": "^0.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.6.1",
+    "@types/react": "^17.0.18",
+    "typescript": "^4.3.5"
+  },
+  "eslintConfig": {
+    "extends": "next"
+  }
+}
+```
+
+## Resources
+
+- [The Quest for the Perfect Dark Mode](https://www.joshwcomeau.com/react/dark-mode/) - @JoshWComeau
+- [Fixing the dark mode flash issue on server rendered websites](https://blog.maximeheckel.com/posts/switching-off-the-lights-part-2-fixing-dark-mode-flashing-on-servered-rendered-website/) - @MaximeHeckel

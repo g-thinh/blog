@@ -1,0 +1,59 @@
+---
+title: Mapping React Children With Finesse
+publishedDate: Mon Aug 16 2021 19:00:00
+imageUrl: https://images.unsplash.com/photo-1618172193763-c511deb635ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80
+imageAltText: Image provided by Unsplash, taken by Milad Fakurian
+description: A useful solution I've found for dynamically adding props and validating implicitly rendered React children. 
+tags: [React]
+---
+
+In certain scenarios, we might want to have a little bit more control over the
+`children` being rendered in a functional component. This can be achieved with a
+combination of `React.Children.map()` and `React.cloneElement()` which allows us
+to dynamically pass additional props to child elements that maybe only the parent
+component would know about.
+
+I found this to be quite useful when working with a sub-component pattern with
+[JSX Dot Notation](https://reactjs.org/docs/jsx-in-depth.html#using-dot-notation-for-jsx-type)
+where a single component delivers multiple sub-components that need to adhere to a
+certain hierarchy during usage. This comes with the slight caveat of not exactly
+knowing this hierarchy before hand without reading through some documentation.
+
+A simple example would be nesting a `<div>` element inside a `<p>` element, which
+is clearly invalid HTML and the console will throw an error for that mistake. 
+Similarly for functional components, we can add in some defensive programming by
+throwing a warning to the console whenever our component encounters a child 
+element that should not be rendered when using this method of mapping Children.
+
+```typescript showlineNumbers
+import React from "react";
+
+type MyProps = React.PropsWithChildren<{
+  // add any props here
+}>;
+
+export function RenderChildrenWithProps({ children }: MyProps) {
+  return React.Children.map(children, (child, index) => {
+    if (React.isValidElement(child)) {
+      const { type } = child;
+      const componentName = (type as React.FC).displayName;
+
+      // can validate descendants if needed
+      if (componentName !== "CustomComponentName") {
+        console.warn(
+          "This component should not be rendered here",
+          componentName
+        );
+      }
+
+      // pass any dynamic props you would need
+      return React.cloneElement(child, { index });
+    }
+  });
+}
+```
+
+## Resources
+
+- [A deep dive into children in React](https://mxstbr.blog/2017/02/react-children-deepdive/) - @mxstbr
+- [JSX In Depth](https://reactjs.org/docs/jsx-in-depth.html)
