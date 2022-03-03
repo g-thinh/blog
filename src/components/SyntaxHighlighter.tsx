@@ -1,9 +1,9 @@
 import * as ScrollArea from "@radix-ui/react-scroll-area";
+import rangeParser from "parse-numeric-range";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import GetCodeBlockStyles from "styles/getCodeBlockStyles";
 import { styled } from "styles/stitches.config";
-import { Flex, Box } from "./Primitive";
-import rangeParser from "parse-numeric-range";
+import { Box, Flex } from "./Primitive";
 import { baseTextStyles, Text } from "./Typography";
 
 const ScrollContainer = styled(ScrollArea.Root, {
