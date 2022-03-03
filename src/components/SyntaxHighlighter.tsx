@@ -2,7 +2,8 @@ import * as ScrollArea from "@radix-ui/react-scroll-area";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import GetCodeBlockStyles from "styles/getCodeBlockStyles";
 import { styled } from "styles/stitches.config";
-import { Flex } from "./Primitive";
+import { Flex, Box } from "./Primitive";
+import rangeParser from "parse-numeric-range";
 import { baseTextStyles, Text } from "./Typography";
 
 const ScrollContainer = styled(ScrollArea.Root, {
@@ -10,6 +11,8 @@ const ScrollContainer = styled(ScrollArea.Root, {
   position: "relative",
   maxWidth: "100vw",
   my: "$6",
+  marginRight: "-2rem",
+  marginLeft: "-2rem",
   "@md": {
     br: "$2xl",
     maxWidth: "$4xl",
@@ -20,11 +23,12 @@ const ScrollContainer = styled(ScrollArea.Root, {
 const Pre = styled("pre", baseTextStyles, {
   fontFamily: "$code",
   fontSize: "$md",
-  p: "$4",
+  py: "$4",
   borderRadius: "inherit",
-  "@xl": {
+
+  "@md": {
     fontSize: "$lg",
-    p: "$8",
+    py: "$8",
   },
 });
 
@@ -41,9 +45,9 @@ const Language = styled(Text, {
   color: "$gray11",
   textTransform: "uppercase",
 
-  px: "$4",
+  px: "$3",
   py: "$2",
-  "@xl": {
+  "@md": {
     py: "$4",
     px: "$8",
   },
@@ -73,11 +77,26 @@ const StyledViewport = styled(ScrollArea.Viewport, {});
 
 type SyntaxHighlighterProps = React.ComponentPropsWithoutRef<"pre"> & {
   children?: React.ReactElement | null;
+  showLineNumbers?: boolean;
+  hl?: string;
 };
 
-const SyntaxHighlighter: React.FC<SyntaxHighlighterProps> = ({ children }) => {
+function getShouldHighlightLine(hl: SyntaxHighlighterProps["hl"]) {
+  if (hl) {
+    const lineNumbers: number[] = rangeParser(hl);
+    return (index: number) => lineNumbers.includes(index + 1);
+  }
+  return () => false;
+}
+
+const SyntaxHighlighter: React.FC<SyntaxHighlighterProps> = ({
+  children,
+  hl,
+  showLineNumbers = false,
+}) => {
   const code = children?.props.children;
   const language = children?.props.className?.replace("language-", "").trim();
+  const shouldHighlightLine = getShouldHighlightLine(hl);
 
   return (
     <ScrollContainer>
@@ -89,15 +108,47 @@ const SyntaxHighlighter: React.FC<SyntaxHighlighterProps> = ({ children }) => {
           theme={GetCodeBlockStyles()}
         >
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
-            <Flex stack="column" css={{ pt: "$10", "@md": { pt: "$12" } }}>
-              <Language>{language}</Language>
+            <Flex
+              stack="column"
+              css={{
+                pt: language ? "$10" : undefined,
+                "@md": { pt: language ? "$12" : undefined },
+              }}
+            >
+              {language && <Language>{language}</Language>}
               <Pre className={className} style={{ ...style }}>
                 {tokens.slice(0, -1).map((line, i) => (
-                  <div key={i} {...getLineProps({ line, key: i })}>
-                    {line.map((token, key) => (
-                      <span key={key} {...getTokenProps({ token, key })} />
-                    ))}
-                  </div>
+                  <Flex
+                    key={i}
+                    css={{
+                      background: shouldHighlightLine(i) ? "$sky4" : undefined,
+                    }}
+                  >
+                    {showLineNumbers && (
+                      <Box
+                        aria-hidden
+                        css={{
+                          minWidth: "2rem",
+                          textAlign: "center",
+                          color: "$gray8",
+                          userSelect: "none",
+                        }}
+                      >
+                        {i + 1}
+                      </Box>
+                    )}
+                    <Box
+                      {...getLineProps({ line, key: i })}
+                      css={{
+                        px: showLineNumbers ? "$2" : "$4",
+                        "@md": { px: showLineNumbers ? "$4" : "$8" },
+                      }}
+                    >
+                      {line.map((token, key) => (
+                        <span key={key} {...getTokenProps({ token, key })} />
+                      ))}
+                    </Box>
+                  </Flex>
                 ))}
               </Pre>
             </Flex>

@@ -1,5 +1,6 @@
 import fs from "fs";
 import matter from "gray-matter";
+import { remarkMdxCodeMeta } from "remark-mdx-code-meta";
 import { bundleMDX } from "mdx-bundler";
 import path from "path";
 
@@ -85,7 +86,10 @@ export async function getSinglePost(slug: string, contentPath: string) {
       // this is the recommended way to add custom remark/rehype plugins:
       // The syntax might look weird, but it protects you in case we add/remove
       // plugins in the future.
-      options.remarkPlugins = [...(options.remarkPlugins ?? [])];
+      options.remarkPlugins = [
+        ...(options.remarkPlugins ?? []),
+        remarkMdxCodeMeta,
+      ];
       return options;
     },
   });

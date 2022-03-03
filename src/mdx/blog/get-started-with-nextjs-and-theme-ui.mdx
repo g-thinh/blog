@@ -19,7 +19,7 @@ giving this a go, then let's move on! Otherwise, feel free to grab the repo
 Like any typical project, we start off with a `create-next-app` command followed
 by a few depedencies for enabling Typescript and linting.
 
-```terminal
+```
 npx create-next-app nextjs-themeui-project
 yarn add -D typescript @types/node @types/react
 touch tsconfig.json
@@ -29,7 +29,7 @@ Next.js will automatically fill in the `tsconfig` with some defaults once you
 run `next dev` so now we can start writing some typescript starting with
 replacing the current pages with our own `_app.tsx` and `_document.tsx`.
 
-```tsx
+```tsx hl="4"
 // pages/_app.tsx
 import type { AppProps } from "next/app";
 
@@ -150,7 +150,7 @@ our theme ready to be consumed. Similar to most CSS-in-JS solutions, Theme-UI
 comes with a `ThemeProvider` context that will inject our tokens where they are
 needed. We can do so by tweaking our `_app.tsx` file like so.
 
-```tsx
+```tsx hl="3,4,8...11" showLineNumbers
 // pages/_app.tsx
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "@theme-ui/core";
@@ -174,7 +174,7 @@ on this, which I'll share at the end, but for now simply add this line. Even
 though our theme hasn't been setup for a Dark mode, it can be done so at a later
 time without too much hassle.
 
-```tsx
+```tsx showLineNumbers hl="9, 27"
 // pages/_document.tsx
 import Document, {
   Html,
@@ -234,7 +234,7 @@ Every good project should start with a CSS global styles 🌎. This can be done 
 a number of ways, but since Theme-UI comes with `emotion` we can make use of its
 `<Global/>` component to create our own CSS reset.
 
-```tsx
+```tsx 
 // styles/Reset.tsx
 import { css, Global, GlobalProps } from "@emotion/react";
 
@@ -267,7 +267,7 @@ export function Reset(props: GlobalProps) {
 
 Importing this into our `_app.tsx` file will do just the trick!
 
-```tsx
+```tsx showLineNumbers hl="5,10"
 // pages/_app.tsx
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "@theme-ui/core";
@@ -294,7 +294,7 @@ a fairly opinionated framework with stricter rules surrounding certain use-cases
 It previously relied on a bunch of eslint packages to do that work. Now we only
 need a single package 🔥.
 
-```terminal
+```
 yarn add -D eslint eslint-config-next
 ```
 
@@ -302,7 +302,7 @@ This is particularly helpful when working with Next.js for the first time as the
 linting will highlight specific Next.js only optimizations that are recommended
 (try adding an `<img/>` tag in your `index.tsx` page to see in it action).
 
-```json
+```json showLineNumbers hl="10, 23...26"
 // package.json
 {
   "name": "nextjs-themeui-ts-template",

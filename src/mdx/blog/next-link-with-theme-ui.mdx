@@ -54,7 +54,7 @@ with Theme-UI, with the following features:
 Without wasting any more time, let's jump into the code starting with the
 basic Link.
 
-```tsx
+```tsx showLineNumbers
 // components/Link.tsx
 import NextLink from "next/link";
 import { Link as Anchor } from "theme-ui";
@@ -128,7 +128,7 @@ the `activeClassName` prop that gets added when the current URL of the page matc
 it's `href`. We can use that same logic to our custom Link with the `useRouter()`
 hook provided by `next-router` for some conditional styling.
 
-```typescript title="Link.tsx - Active Link Variant" hl="2,9,10,14" showlineNumbers
+```typescript title="Link.tsx - Active Link Variant" hl="2,9,10,14" showLineNumbers
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { Link as Anchor } from "theme-ui";
@@ -156,7 +156,7 @@ Next, we want our component to handle external links, by it's own implementation
 `next/link` expects to receive an internal route. We can handle external routes 
 with some good old regex magic with this addition:
 
-```typescript title="Link.tsx - External Link Variant" hl="12...19" showlineNumbers
+```typescript title="Link.tsx - External Link Variant" hl="12...19" showLineNumbers
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { Link as Anchor } from "theme-ui";
@@ -219,7 +219,7 @@ isn't that perfect?). This prop will hijack what's being rendered into whatever
 custom component or HTML tag you pass it, while preserving styles. That being
 said, let there be icons ✨!
 
-```typescript title="Link.tsx - With External Link Icon" hl="2,3,8...14,23" showlineNumbers
+```typescript title="Link.tsx - With External Link Icon" hl="2,3,8...14,23" showLineNumbers
 import NextLink from "next/link";
 import { Link as Anchor, Box } from "theme-ui";
 import { FiExternalLink } from "react-icons/fi";
@@ -267,7 +267,7 @@ to abstract the button styles into the component itself through some kind of var
 This pattern is particularly useful to keep imports leaner and extending functionality
 to components. At this point, with this last feature, the final code should look like this:
 
-```typescript title="Link.tsx - Button Link Variant" hl="38...54" showlineNumbers
+```typescript title="Link.tsx - Button Link Variant" hl="38...54" showLineNumbers
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { Link as Anchor, Box, Button } from "theme-ui";
