@@ -7,13 +7,12 @@ description: A quick tutorial on how to leverage Next/Image with Theme-UI
 tags: [Theme-UI, Next.js]
 ---
 
-Next.js comes packed with optimizations, notably with beimages since version 10
-got released. This is ideal for web apps with tons of media content such as 
-images. Essentially, instead of images being optimized at build time, they are
-lazy loaded by default (meaning they are loaded as users scroll).
+Next.js comes packed with optimizations, notably with images since version 10
+got released. Essentially, instead of images being optimized at build time, they are
+lazy loaded by default (meaning they are loaded as users scroll through a page).
 
-These are some huge benefits, and we definitely want them rolling with our Theme-UI
-project. Since `next/image` already provides a React component to use, we can 
+These optimizations provide some huge benefits, and we definitely want them rolling with
+our Theme-UI project. Since `next/image` already provides a React component to use, we can 
 wrap around with an incredibly useful Theme-UI component called the `<AspectRatio>`. 
 As the name aptly implies, this component preserves the aspect ratio of any image it wraps
 around through its `ratio` prop.
@@ -45,8 +44,8 @@ magic behind this component, it actually uses a well-known padding trick to
 calculate the appropriate width/height for the image. `NextImage` will naturally
 takes whatever space is available using the `layout` prop with the value of `fill`.
 
-Of course, we should also be able to choose a width or height using the component
-itself if no aspect ratio is passed.
+> Of course, we should also be able to choose a width or height using the component
+> itself if no aspect ratio is passed.
 
 And that's really it, you now have a versatile component to render images at any
 size.

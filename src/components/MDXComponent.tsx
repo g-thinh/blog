@@ -4,6 +4,7 @@ import Accordion from "./Accordion";
 import CardAbout from "./CardAbout";
 import Image, { ImageProps } from "./Image";
 import Link from "./Link";
+import Note, { NoteProps } from "./Note";
 import { Box, List, ListItem, ListItemProps, ListProps } from "./Primitive";
 import SyntaxHighlighter from "./SyntaxHighlighter";
 import { Heading, HeadingProps, Text, TextProps } from "./Typography";
@@ -60,6 +61,7 @@ const components: ComponentMap = {
       <SyntaxHighlighter {...props} />
     </>
   ),
+  blockquote: (props: NoteProps) => <Note css={{ mb: "$5" }} {...props} />,
   a: (props: any) => <Link type="text" {...props} />,
   CardAbout,
   Image: (props: ImageProps) => (
