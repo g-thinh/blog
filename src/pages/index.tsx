@@ -3,7 +3,6 @@ import Link from "components/Link";
 import MDXComponent from "components/MDXComponent";
 import { List, ListItem } from "components/Primitive";
 import SEO from "components/SEO";
-import Time from "components/Time";
 import { Heading, Text } from "components/Typography";
 import { InferGetStaticPropsType } from "next";
 import { getPosts, getSinglePost, LANDING_PATH } from "utils/mdxUtils";
@@ -43,21 +42,6 @@ export default function Home(
             >
               <Text css={{ lineHeight: "$normal " }}>
                 {post.frontmatter.title}
-                {props.frontmatter.publishedDate && (
-                  <Time
-                    format="ll"
-                    css={{
-                      ml: "$1",
-                      color: "$gray10",
-                      fontStyle: "italic",
-                      ":before": {
-                        color: "$gray10",
-                        content: " - ",
-                      },
-                    }}
-                    date={post.frontmatter.publishedDate as Date}
-                  />
-                )}
               </Text>
             </Link>
           </ListItem>
