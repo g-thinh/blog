@@ -11,7 +11,7 @@ export default function SEO({ meta }: SEOProps): JSX.Element {
   return (
     <Head>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <title>{meta.title}</title>
+      <title>Gia Thinh Nguyen - {meta.title}</title>
       <meta name="description" content={meta.description} />
       <meta property="og:title" content={meta.title} />
       <meta property="og:description" content={meta.description} />

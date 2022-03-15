@@ -66,7 +66,7 @@ const components: ComponentMap = {
   CardAbout,
   Image: (props: ImageProps) => (
     <Box css={{ my: "$10" }}>
-      <Image src={props.src} alt={props.alt} />
+      <Image {...props} src={props.src} alt={props.alt} />
     </Box>
   ),
   Accordion,
