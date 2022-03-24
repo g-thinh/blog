@@ -6,6 +6,7 @@ export type HeadingProps = React.ComponentPropsWithoutRef<typeof Heading>;
 export const baseTextStyles = css({
   lineHeight: "$taller",
   fontFamily: "$body",
+  fontSize: "$md",
   "@sm": {
     fontSize: "$lg",
   },

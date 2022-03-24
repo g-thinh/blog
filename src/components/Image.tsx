@@ -42,13 +42,10 @@ export default function Image({
   ...props
 }: ImageProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [imageSource, setImageSource] =
-    useState<ImageProps["src"]>(fallbackImage);
+  const [error, setError] = useState(false);
 
-  const handleOnLoadingComplete = () => {
-    if (src) {
-      setImageSource(src);
-    }
+  const handleError = () => {
+    setError(true);
     setIsLoading(false);
   };
 
@@ -56,13 +53,23 @@ export default function Image({
     <ImageAspectRatio ratio={ratio} css={css}>
       <>
         <Shimmer css={{ opacity: isLoading ? 1 : 0 }} />
-        <NextImage
-          layout="fill"
-          objectFit="cover"
-          onLoadingComplete={handleOnLoadingComplete}
-          src={imageSource}
-          {...props}
-        />
+        {!error ? (
+          <NextImage
+            layout="fill"
+            objectFit="cover"
+            onError={handleError}
+            onLoadingComplete={() => setIsLoading(false)}
+            src={src}
+            {...props}
+          />
+        ) : (
+          <NextImage
+            layout="fill"
+            objectFit="cover"
+            alt=""
+            src={fallbackImage}
+          />
+        )}
       </>
     </ImageAspectRatio>
   );
