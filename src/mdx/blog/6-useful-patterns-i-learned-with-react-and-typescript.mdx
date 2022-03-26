@@ -1,0 +1,284 @@
+---
+title: "6 Useful Patterns I Learned with React and TypeScript"
+publishedDate: "Sat Mar 26 2022 12:00:00"
+imageUrl: "https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2064&q=80"
+imageAltText: "Image provided by Unsplash, taken by Sebastian Svenson"
+description: "Sharing my most used techniques and patterns when coding with React in TypeScript"
+tags: ["React", "TypeScript"]
+---
+
+In the early stages of learning TypeScript, I found it difficult to write React the way I used to
+with good ol' JavaScript, until I started to realize the significant gains I had in code hygiene
+and readability by using some of these well known patterns.
+
+## 1. Typing the implicitly rendered Children
+
+Working with the implicitly passed `children` children in React is a must, and TypeScript can make
+this much more explicit and type-safe with this super easy interface provided with the `React` namespace.
+
+```tsx
+function ExampleComponent(props: React.PropsWithChildren<{}>) {
+  return <div>{props.children}</div>;
+}
+```
+
+Of course, `PropsWithChildren` is a generic function, so you can add any additional types there.
+
+## 2. Compound Components with JSX Dot Notation
+
+I was introduced to this pattern early on when building UI components that share a common concern
+or state, where these components can be written in a way that makes them more closely related.
+Take for example a typical dropdown menu, it could look like this:
+
+```tsx
+import Menu from "components/Menu";
+
+function DropdownExample() {
+  return (
+    <Menu>
+      <Menu.Toggle />
+      <Menu.Content>
+        <Menu.ContentItem />
+        <Menu.ContentItem />
+        <Menu.ContentItem />
+      </Menu.Content>
+    </Menu>
+  );
+}
+```
+
+This approach provides the benefit of being able to localize state via the outermost component
+`Menu`, which acts as a `Context` provider, and sharing it to the descendants without having to
+pass it along as props.
+
+Writing these components is also quite simple with [JSX dot notation](https://reactjs.org/docs/jsx-in-depth.html)
+which is a vanilla React feature. While dot notation is usually associated with the common way to
+access object properties in JavaScript, in React it can be quite a handy tool, afterall a React
+element is an object itself.
+
+Taking the example of a dropdown Menu, we can follow the idea closely with this highly abstracted
+snippet.
+
+```tsx
+import { MenuProvider, useMenu } from "context/MenuContext";
+
+export default function Menu(props: React.PropsWithChildren<{}>) {
+  return (
+    <MenuProvider>
+      <div>{props.children}</div>
+    </MenuProvider>
+  );
+}
+
+//We can use dot notation right away to define a new
+//compound component, similar to assigning a new object property
+Menu.Toggle = function MenuToggle() {
+  const { isOpen, toggle } = useMenu();
+  return <button onClick={toggle}>{isOpen ? "Close" : "Open"}</button>;
+};
+
+Menu.Content = function MenuContent(props: React.PropsWithChildren<{}>) {
+  const { isOpen } = useMenu();
+  return isOpen && <ul>{props.children}</ul>;
+};
+
+Menu.ContentItem = function ContentItem(props: React.PropsWithChildren<{}>) {
+  return <li>{props.children}</li>;
+};
+```
+
+## Favour Conditional Rendering with JSX Over Conditional Styles
+
+When it came to visually hiding a component, I would often write code that looks like this:
+
+```tsx
+type Props = {
+  showComponent: boolean;
+};
+
+//❌ Not ideal
+function HiddenComponent(props: Props) {
+  return (
+    <section style={{ display: props.showComponent ? "block" : "none" }}>
+      <p>Some Hidden Text</p>
+    </section>
+  );
+}
+
+//✅ Much better
+function IdeallyHiddenComponent(props: Props) {
+  return (
+    props.showComponent && (
+      <section>
+        <p>Some Hidden Text</p>
+      </section>
+    )
+  );
+}
+```
+
+As I came to learn later, this is not the best way especially when you consider
+performance or accessibility. While it's not a huge hit to performance, hidden DOM
+nodes can pollute your HTML if the page is already heavy, and for accessibility it is not
+great to visually hide content that should be accessible to screen readers.
+
+This [article](https://cloudfour.com/thinks/see-no-evil-hidden-content-and-accessibility/) provides
+the best explanation on what approach to use when dealing with visually hidden but accessible components.
+
+## 4. Easily Obtain Component Props Types
+
+Oten times, I start writing type definitions related to the component inside the same file. Some might prefer
+to keep these definitions in another tidy types-only file because it would be readily available as an export.
+
+But in the case where you do not wish to extend the definition, but merely reuse it, you can easily retrieve the
+definition of the component's props defintion using the `React.ComponentProps<>` generic class.
+
+```tsx
+import SomeComponent from "components/SomeComponent";
+
+export default function AnotherComponent(
+  props: React.ComponentProps<typeof SomeComponent>
+) {
+  return (
+    <div>
+      <p>Some Extra Text</p>
+      <SomeComponent {...props} />
+    </div>
+  );
+}
+```
+
+While this might seem like a quick shortcut over exporting the type and importing it where you might need it, this
+approach can be useful when the original type definition is not readily available, while still offering the possibility
+to extend the definition if need be.
+
+## 5. Spread Your Props Whenever Possible To Maximize Reusability
+
+While working with React, I found myself often wishing a certain `ComponentA` had the same React API event props
+readily available like `onMouseOver` or `onKeyDown`, especially when it is being used in a different context.
+
+```tsx
+type ButtonProps = {
+  onClick: () => void;
+};
+
+function LimitedButton(props: ButtonProps) {
+  return <button onClick={props.onClick}>Click Me</button>;
+}
+
+// 🐞 TypeScript won't like this at all
+function SomeComponent() {
+  return (
+    <LimitedButton
+      onClick={() => console.log("Hello")}
+      onMouseOver={() => console.log("You are hovering on me")}
+    />
+  );
+}
+```
+
+So in this fictional dilemma, where you would want to rely on the well typed `onMouseOver` API from React
+to add an additional callback onto your button component, you simply can't.
+
+<Image
+  src="https://i.imgur.com/RjaMBM5.jpg"
+  alt="Classic but censored scene with Samuel L. Jackson playing as an angry TypeScript server"
+  objectFit="fit"
+  ratio={16 / 9}
+  css={{ margin: "0 2rem" }}
+/>
+
+Fortunately, this can be easily achieved by using the previous lesson's `React.ComponentProps` generic to
+have a wider definition for the component props.
+
+```tsx
+type ButtonProps = React.ComponentProps<"button">;
+
+function SuperButton(props: ButtonProps) {
+  return <button {...props}>Click Me</button>;
+}
+
+// 🎉 This button does it all
+function SomeComponent() {
+  return (
+    <SuperButton
+      onClick={() => console.log("Hello")}
+      onMouseOver={() => console.log("You are hovering on me")}
+      onKeyDown={(e) => console.log("You pressed", e.key)}
+    />
+  );
+}
+```
+
+By having a broader definition for the props and by spreading said props into a component, we end
+up with a versatile and reusable component.
+
+## 6. Replacing The JSX Component Type Conditionally with Type Guards
+
+Occasionally, we would like to substitute our underlying React component with an alternative component
+based on a certain condition. Take for example a `<Button/>` component, perhaps we would like to render
+a link in the presence of an `href` attribute, and a regular `button` when that attribute is not added.
+
+We can take advantage of how JSX tags renderering works, by simply applying a condition to what
+component gets rendered. Remember that React components are **capitalized** and must be in-scope, that
+is they must be declared before being passed into the tags.
+
+```tsx
+type ButtonProps = React.ComponentProps<"a">;
+
+function Button(props: ButtonProps) {
+  const Component = props.href ? "a" : "button";
+  //❌ but wait, here we catch a TypeScript error when we spread our props
+  return <Component {...props}>{props.children}</Component>;
+}
+```
+
+While this compiles with JavaScript, this is not acceptable with the type definition we gave to `ButtonProps`,
+because the attributes for an anchor tag and button tag do not overlap so neatly (easiest example being that
+`button` does not typically receive the `href` attribute).
+
+This is where type guards come in handy, as it allows us to pass the appropriate type definition on `props` based
+on a condition, which is the presence of `href` in the example above.
+
+```tsx
+type ButtonProps = React.ComponentProps<"button">;
+type AnchorProps = React.ComponentProps<"a">;
+
+//This type guard will check the presence of `href`
+function isPropsForAnchorElement(
+  props: ButtonProps | AnchorProps
+): props is AnchorProps {
+  return "href" in props;
+}
+
+function Button(props: ButtonProps | AnchorProps) {
+  if (isPropsForAnchorElement(props)) {
+    return <a {...props} />;
+  }
+  return <button {...props} />;
+}
+```
+
+> You can read more about type guards and narrowing prop definitions at the incredibly useful [React TypeScript
+> CheatSheet](https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/#type-narrowing-based-on-props)
+> documentation.
+
+And voilà, we have ourselves a versatile component that can used to render links or buttons!
+While JSX tags are an amazing part of React, we must also be careful in how we use this pattern
+since it can leave us with un-safe code, and luckily that is where TypeScript can really help out
+by providing tools that can allow us to use this cool pattern.
+
+## As Always, Give Me The TL;DR;
+
+Here is a brief summary of each pattern I wrote about.
+
+1. Always use the `React.PropsWithChildren<{}>` generic when you need to explicitly type the `children` prop.
+2. The compound components pattern with JSX dot notation offer's a great way to share component
+   state and concern in a single exported component made up of several smaller components.
+3. Don't use `display: none` as a crutch for visually hiding elements.
+4. Reach for `React.ComponentProps` when you need to infer the type definition of a component's props.
+5. Don't forget to think about spreading props to the outermost element in your component to really extend it's re-usability and styling potential.
+6. You can render two different components, and still have type-safety with type guards.
+
+React and TypeScript offers an incredibly amazing developer experience when authoring UI components
+and these patterns only offer a glimpse of what can be achieved lately while building apps for the web.
