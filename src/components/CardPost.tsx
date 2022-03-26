@@ -47,7 +47,7 @@ export default function CardPost(props: CardPostProps) {
             textDecoration: "none",
             border: "3px solid",
             borderColor: "$secondary",
-            transition: "border 0.2s ease",
+            transition: "border 100ms ease-in-out",
             br: "$2xl",
             [`& + ${Flex} > ${Heading}`]: {
               color: "$secondary",
