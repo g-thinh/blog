@@ -21,6 +21,7 @@ export function getSourceOfFile(fileName: string, contentPath: string) {
 }
 
 type GetPostsArgs = {
+  tags?: string[];
   limit?: number;
 };
 
@@ -52,10 +53,15 @@ export function getPosts(args?: GetPostsArgs) {
     }
   });
 
-  if (args?.limit) {
-    posts.splice(args.limit);
+  if (args?.tags) {
+    const filteredPosts = posts.filter((post) =>
+      post.frontmatter.tags?.some((tag) => args.tags?.includes(tag))
+    );
+    filteredPosts.length = args.limit ?? filteredPosts.length;
+    return filteredPosts;
   }
 
+  posts.length = args?.limit ?? posts.length;
   return posts;
 }
 

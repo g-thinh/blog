@@ -15,6 +15,15 @@ export const Flex = styled(Box, {
   },
 });
 
+export const Divider = styled("hr", {
+  my: "$4",
+  mx: "auto",
+  width: "100%",
+  border: "2px solid",
+  borderRadius: "$2xl",
+  borderColor: "$gray4",
+});
+
 export type ListProps = React.ComponentPropsWithoutRef<typeof List>;
 export const List = styled("ul", {
   display: "flex",
