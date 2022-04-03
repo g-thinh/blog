@@ -4,6 +4,7 @@ import MDXComponent from "components/MDXComponent";
 import { List, ListItem } from "components/Primitive";
 import SEO from "components/SEO";
 import { Heading, Text } from "components/Typography";
+import WidgetDevTo from "components/WidgetDevTo";
 import { InferGetStaticPropsType } from "next";
 import { getPosts, getSinglePost, LANDING_PATH } from "utils/mdxUtils";
 
@@ -47,6 +48,10 @@ export default function Home(
           </ListItem>
         ))}
       </List>
+      <Heading as="h2" level="two" css={{ color: "$secondary", my: "$3" }}>
+        Recent Articles from Dev.to
+      </Heading>
+      <WidgetDevTo />
     </Section>
   );
 }
