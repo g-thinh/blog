@@ -3,7 +3,7 @@ const baseUrl =
     ? window.location.origin
     : "";
 
-type UserProfile = {
+export type UserProfile = {
   github_username?: string;
   id?: number;
   joined_at?: string;
@@ -17,7 +17,7 @@ type UserProfile = {
   website_url?: string;
 };
 
-type DevToArticle = {
+export type DevToArticle = {
   canonical_url?: string;
   collection_id?: number | null;
   comments_count?: number;
