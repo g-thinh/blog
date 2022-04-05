@@ -1,9 +1,9 @@
+import CardPostPreview from "components/CardPostPreview";
 import { Section } from "components/Layout";
-import Link from "components/Link";
 import MDXComponent from "components/MDXComponent";
-import { List, ListItem } from "components/Primitive";
+import { Divider, Grid } from "components/Primitive";
 import SEO from "components/SEO";
-import { Heading, Text } from "components/Typography";
+import { Heading } from "components/Typography";
 import WidgetDevTo from "components/WidgetDevTo";
 import { InferGetStaticPropsType } from "next";
 import { getPosts, getSinglePost, LANDING_PATH } from "utils/mdxUtils";
@@ -28,27 +28,15 @@ export default function Home(
     <Section>
       <SEO meta={{ ...props.frontmatter }} />
       <MDXComponent code={props.code} />
+      <Divider css={{ my: "$8" }} />
+      <Grid type="basic">
+        <CardPostPreview.CTA />
+        {props.posts?.map((post) => {
+          return <CardPostPreview key={post.frontmatter?.title} {...post} />;
+        })}
+      </Grid>
+      <Divider css={{ my: "$8" }} />
       <Heading as="h2" level="two" css={{ color: "$secondary", mb: "$3" }}>
-        Latest Posts
-      </Heading>
-      <List css={{ gap: "$1" }}>
-        {props.posts?.map((post) => (
-          <ListItem key={post.frontmatter.title}>
-            <Link
-              href={post.full_slug}
-              css={{
-                display: "inline-flex",
-                alignItems: "center",
-              }}
-            >
-              <Text css={{ lineHeight: "$normal " }}>
-                {post.frontmatter.title}
-              </Text>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
-      <Heading as="h2" level="two" css={{ color: "$secondary", my: "$3" }}>
         Recent Articles from Dev.to
       </Heading>
       <WidgetDevTo />

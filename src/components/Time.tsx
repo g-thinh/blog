@@ -10,7 +10,7 @@ dayjs.extend(LocalizedFormat);
 type TimeProps = {
   date: Date;
   css?: CSS;
-  format?: "LL" | "ll";
+  format?: "LL" | "ll" | string;
 } & React.ComponentProps<typeof StyledTime>;
 
 const StyledTime = styled(Flex, {

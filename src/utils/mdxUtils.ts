@@ -1,8 +1,8 @@
 import fs from "fs";
 import matter from "gray-matter";
-import { remarkMdxCodeMeta } from "remark-mdx-code-meta";
 import { bundleMDX } from "mdx-bundler";
 import path from "path";
+import { remarkMdxCodeMeta } from "remark-mdx-code-meta";
 
 export type MDXFrontmatter = {
   title?: string;
@@ -25,7 +25,13 @@ type GetPostsArgs = {
   limit?: number;
 };
 
-export function getPosts(args?: GetPostsArgs) {
+export type Post = {
+  frontmatter?: MDXFrontmatter;
+  slug?: string;
+  full_slug?: string;
+};
+
+export function getPosts(args?: GetPostsArgs): Post[] {
   const posts = fs
     .readdirSync(BLOG_PATH)
     .filter((path) => /\.mdx?$/.test(path))

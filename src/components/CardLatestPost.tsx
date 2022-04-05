@@ -1,21 +1,17 @@
-import type { MDXFrontmatter } from "utils/mdxUtils";
+import type { Post } from "utils/mdxUtils";
 import Avatar from "./Avatar";
 import Image from "./Image";
-import Link, { LinkProps } from "./Link";
+import Link from "./Link";
 import { Box, Flex } from "./Primitive";
 import Tag from "./Tag";
 import Time, { readTime } from "./Time";
 import { Heading, Text } from "./Typography";
 
-type CardPostProps = MDXFrontmatter & {
-  href: LinkProps["href"];
-};
-
-export default function CardLatestPost(props: CardPostProps) {
+export default function CardLatestPost(props: Post) {
   const getScreenReaderMessage = () => {
-    let message = `${props.title}, ${props.description}`;
-    if (props.publishedDate) {
-      message = message + `, ${readTime(props.publishedDate)}`;
+    let message = `${props.frontmatter?.title}, ${props.frontmatter?.description}`;
+    if (props.frontmatter?.publishedDate) {
+      message = message + `, ${readTime(props.frontmatter?.publishedDate)}`;
     }
     return message;
   };
@@ -67,8 +63,8 @@ export default function CardLatestPost(props: CardPostProps) {
         >
           <Image
             ratio={4 / 3}
-            src={props?.imageUrl ?? ""}
-            alt={props.imageAltText}
+            src={props.frontmatter?.imageUrl ?? ""}
+            alt={props.frontmatter?.imageAltText}
             css={{
               boxShadow: "$cardpost",
               "@md": {
@@ -97,7 +93,7 @@ export default function CardLatestPost(props: CardPostProps) {
         }}
       >
         <Link
-          href={props.href}
+          href={props.full_slug ?? ""}
           screenReaderMessage={getScreenReaderMessage()}
           css={{
             position: "absolute",
@@ -116,22 +112,24 @@ export default function CardLatestPost(props: CardPostProps) {
           }}
         />
         <Heading aria-hidden as="h3" level="three">
-          {props.title}
+          {props.frontmatter?.title}
         </Heading>
         <Flex css={{ gap: "$4" }}>
-          {props.tags?.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
+          {props.frontmatter?.tags?.map((tag) => (
+            <Tag key={tag} css={{ backgroundColor: "$secondary" }}>
+              {tag}
+            </Tag>
           ))}
         </Flex>
-        {props.description && (
+        {props.frontmatter?.description && (
           <Text aria-hidden css={{ color: "$gray11", lineHeight: "$base" }}>
-            {props.description}
+            {props.frontmatter?.description}
           </Text>
         )}
         <Flex css={{ alignItems: "center", gap: "$4" }}>
           <Avatar />
-          {props.publishedDate && (
-            <Time aria-hidden date={props.publishedDate} />
+          {props.frontmatter?.publishedDate && (
+            <Time aria-hidden date={props.frontmatter?.publishedDate} />
           )}
         </Flex>
       </Flex>

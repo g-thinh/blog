@@ -3,7 +3,7 @@ import { FiBarChart, FiClock } from "react-icons/fi";
 import { DevToArticle } from "utils/api";
 import Avatar from "./Avatar";
 import Link from "./Link";
-import { Box, Flex } from "./Primitive";
+import { Box, Flex, Grid } from "./Primitive";
 import { readTime } from "./Time";
 import { Heading, Text } from "./Typography";
 
@@ -130,10 +130,9 @@ export default function WidgetDevTo() {
   return (
     <>
       <Profile />
-      <Box
+      <Grid
         as="ul"
         css={{
-          display: "grid",
           gridTemplateColumns: "repeat(1, 1fr)",
           gridAutoRows: "1fr",
         }}
@@ -143,7 +142,7 @@ export default function WidgetDevTo() {
             <CardArticle {...article} />
           </Box>
         ))}
-      </Box>
+      </Grid>
     </>
   );
 }

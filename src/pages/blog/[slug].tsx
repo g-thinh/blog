@@ -3,7 +3,7 @@ import Image from "components/Image";
 import { Section } from "components/Layout";
 import MDXComponent from "components/MDXComponent";
 import PostTitle from "components/PostTitle";
-import { Box, Divider, Flex } from "components/Primitive";
+import { Box, Divider, Flex, Grid } from "components/Primitive";
 import SEO from "components/SEO";
 import { Heading } from "components/Typography";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
@@ -15,7 +15,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const relatedPosts = await getPosts({ tags: frontmatter.tags, limit: 5 });
 
   const similarPosts = relatedPosts.filter(
-    (post) => post.frontmatter.title !== frontmatter.title
+    (post) => post.frontmatter?.title !== frontmatter.title
   );
 
   return {
@@ -58,16 +58,14 @@ export default function BlogPost(
         </Box>
       </Flex>
       <MDXComponent code={props.code} />
-
       {props.similarPosts.length > 0 && (
         <>
           <Divider />
           <Heading as="h2" level="two" css={{ mb: "$4", color: "$secondary" }}>
             Similar Posts
           </Heading>
-          <Box
+          <Grid
             css={{
-              display: "grid",
               gridTemplateColumns: "repeat(1, 1fr)",
               gridAutoRows: "1fr",
               gap: "$8",
@@ -79,13 +77,15 @@ export default function BlogPost(
           >
             {props.similarPosts.map((post) => (
               <CardPost
-                key={post.frontmatter.title}
-                href={post.full_slug}
-                title={post.frontmatter.title}
-                description={post.frontmatter.description}
+                key={post.frontmatter?.title}
+                full_slug={post.full_slug ?? ""}
+                frontmatter={{
+                  title: post.frontmatter?.title,
+                  description: post.frontmatter?.description,
+                }}
               />
             ))}
-          </Box>
+          </Grid>
         </>
       )}
     </Section>

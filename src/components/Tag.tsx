@@ -1,9 +1,5 @@
 import { styled } from "styles/stitches.config";
 
-type TagProps = React.PropsWithChildren<{
-  type?: "React" | "Next.js" | "CSS";
-}>;
-
 const StyledTag = styled("div", {
   display: "inline-flex",
   width: "max-content",
@@ -16,6 +12,8 @@ const StyledTag = styled("div", {
   fontWeight: "$medium",
 });
 
-export default function Tag(props: TagProps) {
-  return <StyledTag>{props.children}</StyledTag>;
+export default function Tag(
+  props: React.ComponentPropsWithRef<typeof StyledTag>
+) {
+  return <StyledTag {...props}>{props.children}</StyledTag>;
 }
