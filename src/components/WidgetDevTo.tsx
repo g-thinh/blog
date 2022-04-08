@@ -14,9 +14,7 @@ function Profile() {
       css={{
         px: "$4",
         py: "$6",
-        backgroundColor: "$gray4",
-        borderTopLeftRadius: "$xl",
-        borderTopRightRadius: "$xl",
+        backgroundColor: "$gray5",
       }}
     >
       {profile && (
@@ -80,9 +78,9 @@ function CardArticle(props: DevToArticle) {
         position: "relative",
         py: "$2",
         px: "$4",
-        backgroundColor: "$gray3",
+        backgroundColor: "$gray4",
         "&:hover": {
-          backgroundColor: "$gray4",
+          backgroundColor: "$gray5",
         },
       }}
     >
@@ -128,7 +126,16 @@ function CardArticle(props: DevToArticle) {
 export default function WidgetDevTo() {
   const { articles } = useDevTo({ per_page: 3 });
   return (
-    <>
+    <Box
+      css={{
+        marginLeft: "-2rem",
+        marginRight: "-2rem",
+        "@lg": {
+          borderRadius: "$2xl",
+          overflow: "hidden",
+        },
+      }}
+    >
       <Profile />
       <Grid
         as="ul"
@@ -143,6 +150,6 @@ export default function WidgetDevTo() {
           </Box>
         ))}
       </Grid>
-    </>
+    </Box>
   );
 }
