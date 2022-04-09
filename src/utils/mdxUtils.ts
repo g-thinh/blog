@@ -94,7 +94,7 @@ export async function getSinglePost(slug: string, contentPath: string) {
   const { code, frontmatter } = await bundleMDX<MDXFrontmatter>({
     source: source,
     cwd: contentPath,
-    xdmOptions(options) {
+    mdxOptions(options) {
       // this is the recommended way to add custom remark/rehype plugins:
       // The syntax might look weird, but it protects you in case we add/remove
       // plugins in the future.

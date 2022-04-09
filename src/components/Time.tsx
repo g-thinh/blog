@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { CSS, styled } from "styles/stitches.config";
-import { Box, Flex } from "./Primitive";
+import { Box } from "./Primitive";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(LocalizedFormat);
@@ -13,7 +13,7 @@ type TimeProps = {
   format?: "LL" | "ll" | string;
 } & React.ComponentProps<typeof StyledTime>;
 
-const StyledTime = styled(Flex, {
+const StyledTime = styled("time", {
   display: "inline-flex",
 });
 
@@ -28,12 +28,7 @@ export default function Time({
   ...props
 }: TimeProps) {
   return (
-    <StyledTime
-      as="time"
-      dateTime={dayjs(date).format(format)}
-      css={css}
-      {...props}
-    >
+    <StyledTime dateTime={dayjs(date).format(format)} css={css} {...props}>
       <Box as="abbr">{dayjs(date).format(format)}</Box>
     </StyledTime>
   );
