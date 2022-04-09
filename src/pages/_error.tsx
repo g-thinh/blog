@@ -13,7 +13,9 @@ export default function Error({ statusCode }: ErrorPageProps) {
       <Heading as="h1" css={{ mb: "$5", span: { color: "$red10" } }}>
         Oops, looks like there&apos;s a <span>{statusCode} error</span> here
       </Heading>
-      <Link href="/">Return to the homepage</Link>
+      <Link type="button" href="/">
+        Return to the homepage
+      </Link>
     </Section>
   );
 }
