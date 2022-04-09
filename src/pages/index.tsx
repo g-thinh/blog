@@ -3,7 +3,6 @@ import { Section } from "components/Layout";
 import MDXComponent from "components/MDXComponent";
 import { Divider, Grid } from "components/Primitive";
 import SEO from "components/SEO";
-import { Heading } from "components/Typography";
 import WidgetDevTo from "components/WidgetDevTo";
 import { InferGetStaticPropsType } from "next";
 import { getPosts, getSinglePost, LANDING_PATH } from "utils/mdxUtils";
