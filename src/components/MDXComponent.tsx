@@ -70,6 +70,7 @@ const components: ComponentMap = {
     </Box>
   ),
   Accordion,
+  Link,
 };
 
 export default function MDXComponent({ code }: { code: string }) {

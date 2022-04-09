@@ -2,7 +2,7 @@ import CardLatestPost from "components/CardLatestPost";
 import CardPost from "components/CardPost";
 import { Section } from "components/Layout";
 import MDXComponent from "components/MDXComponent";
-import { Box } from "components/Primitive";
+import { Grid } from "components/Primitive";
 import SEO from "components/SEO";
 import { Heading } from "components/Typography";
 import { InferGetStaticPropsType } from "next";
@@ -31,61 +31,23 @@ export default function Blog(
       <Heading as="h2" level="two" css={{ color: "$secondary", mb: "$4" }}>
         What&apos;s New?
       </Heading>
-      <Box
-        css={{
-          display: "grid",
-          gridTemplateColumns: "repeat(1, 1fr)",
-          gridAutoRows: "1fr",
-          gap: "$4",
-        }}
-      >
-        {props.posts?.map((post, index) => {
-          return (
-            index === 0 && (
-              <CardLatestPost
-                key={post.frontmatter.title}
-                href={post.full_slug}
-                title={post.frontmatter.title}
-                description={post.frontmatter.description}
-                imageUrl={post.frontmatter?.imageUrl}
-                publishedDate={post.frontmatter.publishedDate}
-                imageAltText={post.frontmatter?.imageAltText}
-                tags={post.frontmatter.tags}
-              />
-            )
-          );
-        })}
-      </Box>
+      {props.posts?.map((post, index) => {
+        return (
+          index === 0 && (
+            <CardLatestPost key={post.frontmatter?.title} {...post} />
+          )
+        );
+      })}
       <Heading as="h2" level="two" css={{ mt: "$10", mb: "$4" }}>
         Previous Posts
       </Heading>
-      <Box
-        css={{
-          display: "grid",
-          gridTemplateColumns: "repeat(1, 1fr)",
-          gridAutoRows: "1fr",
-          gap: "$8",
-          "@md": {
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "$8",
-          },
-        }}
-      >
+      <Grid type="posts">
         {props.posts?.map((post, index) => {
           return (
-            index !== 0 && (
-              <CardPost
-                key={post.frontmatter.title}
-                href={post.full_slug}
-                title={post.frontmatter.title}
-                description={post.frontmatter.description}
-                tags={post.frontmatter.tags}
-                publishedDate={post.frontmatter.publishedDate}
-              />
-            )
+            index !== 0 && <CardPost key={post.frontmatter?.title} {...post} />
           );
         })}
-      </Box>
+      </Grid>
     </Section>
   );
 }

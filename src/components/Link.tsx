@@ -4,10 +4,6 @@ import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { styled } from "styles/stitches.config";
 import { baseTextStyles } from "./Typography";
 
-enum LinkVariantsEnum {
-  Text = "text",
-}
-
 export const Anchor = styled("a", baseTextStyles, {
   color: "$text",
   display: "inline-flex",
@@ -21,11 +17,23 @@ export const Anchor = styled("a", baseTextStyles, {
 
   variants: {
     type: {
-      [LinkVariantsEnum.Text]: {
+      text: {
         color: "$primary",
         "&:hover": {
           textDecoration: "underline",
           textDecorationThickness: 1,
+        },
+      },
+      button: {
+        borderRadius: "$md",
+        px: "$3",
+        backgroundColor: "$blue8",
+        "&:hover": {
+          textDecoration: "none",
+          backgroundColor: "$blue7",
+        },
+        "&:active": {
+          backgroundColor: "$blue6",
         },
       },
     },
@@ -33,7 +41,7 @@ export const Anchor = styled("a", baseTextStyles, {
 });
 
 export type LinkProps = React.PropsWithChildren<NextLinkProps> & {
-  type?: LinkVariantsEnum;
+  type?: "button" | "text";
   screenReaderMessage?: string;
   css?: Stitches.CSS;
 };

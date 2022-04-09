@@ -1,7 +1,6 @@
 import { styled } from "styles/stitches.config";
-import { Box } from "./Primitive";
 
-const StyledBox = styled(Box, {
+const StyledBox = styled("blockquote", {
   background: "$blue5",
   borderLeft: "6px solid",
   borderColor: "$primary",

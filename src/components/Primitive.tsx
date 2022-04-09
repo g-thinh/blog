@@ -15,6 +15,30 @@ export const Flex = styled(Box, {
   },
 });
 
+export const Grid = styled(Box, {
+  display: "grid",
+  variants: {
+    type: {
+      basic: {
+        gap: "$3",
+        gridTemplateColumns: "repeat(2,1fr)",
+        "@md": {
+          gap: "$4",
+          gridTemplateColumns: "repeat(3,1fr)",
+        },
+      },
+      posts: {
+        gap: "$8",
+        gridTemplateColumns: "repeat(1, 1fr)",
+        gridAutoRows: "1fr",
+        "@md": {
+          gridTemplateColumns: "repeat(2, 1fr)",
+        },
+      },
+    },
+  },
+});
+
 export const Divider = styled("hr", {
   my: "$4",
   mx: "auto",
