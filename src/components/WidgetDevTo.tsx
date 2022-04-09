@@ -3,7 +3,7 @@ import { FiBarChart, FiClock } from "react-icons/fi";
 import { DevToArticle } from "utils/api";
 import Avatar from "./Avatar";
 import Link from "./Link";
-import { Box, Flex, Grid } from "./Primitive";
+import { Box, Divider, Flex, Grid } from "./Primitive";
 import { readTime } from "./Time";
 import { Heading, Text } from "./Typography";
 
@@ -17,46 +17,49 @@ function Profile() {
         backgroundColor: "$gray5",
       }}
     >
-      {profile && (
-        <Flex
-          css={{
-            alignItems: "center",
-            gap: "$8",
-            flexDirection: "column",
-            "@sm": {
-              flexDirection: "row",
-            },
-          }}
-        >
-          <Box>
-            <Avatar src={profile?.profile_image} size={120} />
-          </Box>
-          <Flex stack="column">
-            <Flex
-              stack="column"
-              css={{
-                gap: "$2",
-                alignItems: "center",
-                textAlign: "center",
-                "@sm": {
-                  alignItems: "flex-start",
-                  textAlign: "start",
-                },
-              }}
-            >
-              <Heading as="p" level="three" css={{ fontWeight: "$bold" }}>
-                {profile.name}
-              </Heading>
-              <Text css={{ lineHeight: "$base" }}>{profile.summary}</Text>
-              <Box>
-                <Link href="https://dev.to/gthinh" type="button">
-                  View my profile
-                </Link>
-              </Box>
-            </Flex>
+      <Heading as="h2" level="two" css={{ color: "$secondary" }}>
+        Recent Articles from Dev.to
+      </Heading>
+      <Divider css={{ borderColor: "$secondary", mb: "$8" }} />
+      <Flex
+        css={{
+          position: "relative",
+          alignItems: "center",
+          gap: "$8",
+          flexDirection: "column",
+          "@sm": {
+            flexDirection: "row",
+          },
+        }}
+      >
+        <Box>
+          <Avatar src={profile?.profile_image} size={120} />
+        </Box>
+        <Flex stack="column" css={{ width: "$full" }}>
+          <Flex
+            stack="column"
+            css={{
+              gap: "$2",
+              alignItems: "center",
+              textAlign: "center",
+              "@sm": {
+                alignItems: "flex-start",
+                textAlign: "start",
+              },
+            }}
+          >
+            <Heading as="p" level="three" css={{ fontWeight: "$bold" }}>
+              {profile?.name}
+            </Heading>
+            <Text css={{ lineHeight: "$base" }}>{profile?.summary}</Text>
+            <Box>
+              <Link href="https://dev.to/gthinh" type="button">
+                View my profile
+              </Link>
+            </Box>
           </Flex>
         </Flex>
-      )}
+      </Flex>
     </Box>
   );
 }
@@ -79,9 +82,6 @@ function CardArticle(props: DevToArticle) {
         py: "$2",
         px: "$4",
         backgroundColor: "$gray4",
-        "&:hover": {
-          backgroundColor: "$gray5",
-        },
       }}
     >
       <Flex css={{ gap: "$3", height: "$full" }}>
@@ -128,12 +128,8 @@ export default function WidgetDevTo() {
   return (
     <Box
       css={{
-        marginLeft: "-2rem",
-        marginRight: "-2rem",
-        "@lg": {
-          borderRadius: "$2xl",
-          overflow: "hidden",
-        },
+        borderRadius: "$2xl",
+        overflow: "hidden",
       }}
     >
       <Profile />

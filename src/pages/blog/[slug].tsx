@@ -64,17 +64,7 @@ export default function BlogPost(
           <Heading as="h2" level="two" css={{ mb: "$4", color: "$secondary" }}>
             Similar Posts
           </Heading>
-          <Grid
-            css={{
-              gridTemplateColumns: "repeat(1, 1fr)",
-              gridAutoRows: "1fr",
-              gap: "$8",
-              "@md": {
-                gridTemplateColumns: "repeat(2, 1fr)",
-                gap: "$8",
-              },
-            }}
-          >
+          <Grid type="posts">
             {props.similarPosts.map((post) => (
               <CardPost
                 key={post.frontmatter?.title}

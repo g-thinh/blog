@@ -41,16 +41,7 @@ export default function Blog(
       <Heading as="h2" level="two" css={{ mt: "$10", mb: "$4" }}>
         Previous Posts
       </Heading>
-      <Grid
-        css={{
-          gridTemplateColumns: "repeat(1, 1fr)",
-          gridAutoRows: "1fr",
-          gap: "$8",
-          "@md": {
-            gridTemplateColumns: "repeat(2, 1fr)",
-          },
-        }}
-      >
+      <Grid type="posts">
         {props.posts?.map((post, index) => {
           return (
             index !== 0 && <CardPost key={post.frontmatter?.title} {...post} />

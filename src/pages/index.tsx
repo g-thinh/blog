@@ -28,17 +28,13 @@ export default function Home(
     <Section>
       <SEO meta={{ ...props.frontmatter }} />
       <MDXComponent code={props.code} />
-      <Divider css={{ my: "$8" }} />
-      <Grid type="basic">
+      <Divider css={{ my: "$10" }} />
+      <Grid type="basic" css={{ mb: "$10" }}>
         <CardPostPreview.CTA />
         {props.posts?.map((post) => {
           return <CardPostPreview key={post.frontmatter?.title} {...post} />;
         })}
       </Grid>
-      <Divider css={{ my: "$8" }} />
-      <Heading as="h2" level="two" css={{ color: "$secondary", mb: "$3" }}>
-        Recent Articles from Dev.to
-      </Heading>
       <WidgetDevTo />
     </Section>
   );
