@@ -2,7 +2,7 @@ import fs from "fs";
 import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 import path from "path";
-import { remarkMdxCodeMeta } from "remark-mdx-code-meta";
+import remarkMdxCodeMeta from "remark-mdx-code-meta";
 
 export type MDXFrontmatter = {
   title?: string;
