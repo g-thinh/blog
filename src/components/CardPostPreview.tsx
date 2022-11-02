@@ -43,6 +43,7 @@ export default function CardPostPreview(post: Post) {
         position: "relative",
         overflow: "hidden",
         br: "$2xl",
+        width: "100%",
         border: "3px solid",
         borderColor: "transparent",
         "&:hover, &:focus-within": {
