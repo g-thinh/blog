@@ -17,10 +17,11 @@ type SEOProps = {
 
 export default function SEO({ meta }: SEOProps): JSX.Element {
   const router = useRouter();
+
   return (
     <Head>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <title>Gia Thinh Nguyen - {meta.title}</title>
+      <title>{`Gia Thinh Nguyen - ${meta.title}`}</title>
       <meta name="author" content="Gia Thinh Nguyen" />
       <meta property="og:type" content="article" />
       {meta.tags && <meta name="keywords" content={meta.tags?.toString()} />}
