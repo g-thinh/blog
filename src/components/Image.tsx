@@ -55,18 +55,18 @@ export default function Image({
         <Shimmer css={{ opacity: isLoading ? 1 : 0 }} />
         {!error ? (
           <NextImage
-            layout="fill"
-            objectFit="cover"
+            fill
             onError={handleError}
             onLoadingComplete={() => setIsLoading(false)}
             src={src}
+            style={{ objectFit: "cover" }}
             {...props}
           />
         ) : (
           <NextImage
-            layout="fill"
-            objectFit="cover"
-            alt=""
+            fill
+            alt="A random beautiful picture from picsum.photos"
+            style={{ objectFit: "cover" }}
             src={fallbackImage}
           />
         )}

@@ -49,7 +49,7 @@ export default function BlogPost(
         <Box css={{ my: "$5" }}>
           <Image
             src={props.frontmatter?.imageUrl ?? ""}
-            alt={props.frontmatter.imageAltText}
+            alt={props.frontmatter.imageAltText ?? ""}
             priority
             css={{
               "@lg": { marginRight: "-2rem", marginLeft: "-2rem" },

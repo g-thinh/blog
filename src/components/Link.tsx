@@ -1,10 +1,9 @@
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import type * as Stitches from "@stitches/react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import { styled } from "styles/stitches.config";
-import { baseTextStyles } from "./Typography";
+import { css, styled } from "styles/stitches.config";
 
-export const Anchor = styled("a", baseTextStyles, {
+const baseAnchorStyles = css({
   color: "$text",
   display: "inline-flex",
   alignItems: "center",
@@ -13,6 +12,14 @@ export const Anchor = styled("a", baseTextStyles, {
     textDecoration: "underline",
     textDecorationColor: "$primary",
     textDecorationThickness: 3,
+  },
+
+  "@sm": {
+    fontSize: "$lg",
+  },
+
+  "@lg": {
+    fontSize: "$xl",
   },
 
   variants: {
@@ -27,6 +34,7 @@ export const Anchor = styled("a", baseTextStyles, {
       button: {
         borderRadius: "$md",
         px: "$3",
+        py: "$2",
         backgroundColor: "$blue8",
         "&:hover": {
           textDecoration: "none",
@@ -39,6 +47,10 @@ export const Anchor = styled("a", baseTextStyles, {
     },
   },
 });
+
+export const Anchor = styled("a", baseAnchorStyles);
+
+const AnchorText = styled("span", baseAnchorStyles);
 
 export type LinkProps = React.PropsWithChildren<NextLinkProps> & {
   type?: "button" | "text";
@@ -63,11 +75,11 @@ export default function Link({
   }
 
   return (
-    <NextLink passHref {...props}>
-      <Anchor type={type} css={css}>
+    <NextLink passHref style={{ textDecoration: "none" }} {...props}>
+      <AnchorText type={type} css={css}>
         {children}
         <VisuallyHidden.Root>{screenReaderMessage}</VisuallyHidden.Root>
-      </Anchor>
+      </AnchorText>
     </NextLink>
   );
 }

@@ -64,7 +64,7 @@ export default function CardLatestPost(props: Post) {
           <Image
             ratio={4 / 3}
             src={props.frontmatter?.imageUrl ?? ""}
-            alt={props.frontmatter?.imageAltText}
+            alt={props.frontmatter?.imageAltText ?? ""}
             css={{
               boxShadow: "$cardpost",
               "@md": {
